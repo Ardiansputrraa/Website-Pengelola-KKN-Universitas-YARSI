@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Dpl;
 use App\Models\User;
 use App\Models\Mahasiswa;
 use Illuminate\Http\Request;
@@ -128,6 +129,139 @@ class AdminController extends Controller
                     $row->gelar,
                     $row->fakultas,
                     $row->prodi,
+                    $row->email,
+                    $row->nomer_whatsapp,
+                    $row->status,
+                ]);
+            }
+            fclose($file);
+        };
+
+        return Response::stream($callback, 200, $headers);
+    }
+
+    public function viewDataDpl(Request $request, Dpl $dpl)
+    {
+        $this->authorize('viewDataDpl', $dpl);
+        $dpl = Dpl::all();
+        return view('informasi.admin.dpl.dpl', compact('dpl'));
+    }
+
+    public function viewDetailDataDpl($user_id, Dpl $dpl)
+    {
+        $this->authorize('viewDetailDataDpl', $dpl);
+        $dpl = Dpl::where('user_id', $user_id)->first();
+        return view('informasi.admin.dpl.detail-dpl', ['dpl' => $dpl]);
+    }
+
+    public function updateDataDpl(Request $request, Dpl $dpl)
+    {
+
+        $this->authorize('updateDataDpl', $dpl);
+
+        $validator = Validator::make($request->all(), [
+            'email' => 'email|unique:dpl,email,',
+            'nip' => 'unique:dpl,nip,',
+        ]);
+
+        if ($validator->fails()) {
+            if ($validator->errors()->has('email')) {
+                return response()->json(['message' => 'Email sudah digunakan!'], 422);
+            }
+            if ($validator->errors()->has('nip')) {
+                return response()->json(['message' => 'NIP sudah digunakan!'], 422);
+            }
+            return response()->json(['errors' => $validator->errors()], 422);
+        }
+        $user_id = $request->user_id;
+        $dpl = Dpl::where('user_id', $user_id)->first();
+        if ($dpl) {
+            $dpl->nama_lengkap = $request->namaLengkap;
+            if ($request->nip !== null) {
+                $dpl->nip = $request->nip;
+            }
+            $dpl->gelar = $request->gelar;
+            $dpl->fakultas = $request->fakultas;
+            $dpl->prodi = $request->prodi;
+            $dpl->nama_bank = $request->namaBank;
+            $dpl->nomer_rekening = $request->nomerRekening;
+            if ($request->email !== null) {
+                $dpl->email = $request->email;
+            }
+            $dpl->nomer_whatsapp = $request->nomerWhatsapp;
+
+            $dpl->update();
+
+            return response()->json(['msg' => 'Data Dpl Berhasil Diubah.'], 200);
+        }
+    }
+
+    public function deleteDataDpl($id, Dpl $mahasiswa)
+    {
+
+        $this->authorize('deleteDataDpl', $mahasiswa);
+
+        DB::beginTransaction();
+        try {
+            Dpl::where('user_id', $id)->delete();
+
+            User::where('id', $id)->delete();
+
+            DB::commit();
+            return response()->json(['message' => 'Data DPL Berhasil Dihapus.'], 200);
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return response()->json(['message' => $e->getMessage()], 500);
+        }
+    }
+
+    public function searchDataDpl(Request $request, Dpl $mahasiswa)
+    {
+
+        $this->authorize('searchDataDpl', $mahasiswa);
+
+        $keyword = $request->get('keyword');
+        $results = Dpl::where('nama_lengkap', 'LIKE', '%' . $keyword . '%')
+            ->orWhere('nip', 'LIKE', '%' . $keyword . '%')
+            ->orWhere('fakultas', 'LIKE', '%' . $keyword . '%')
+            ->orWhere('prodi', 'LIKE', '%' . $keyword . '%')
+            ->get();
+
+        return response()->json($results);
+    }
+
+    public function downloadDataDpl(Dpl $mahasiswa)
+    {
+
+        $this->authorize('downloadDataDpl', $mahasiswa);
+        $data = Dpl::all();
+
+
+        $fileName = 'data_dpl.csv';
+
+        $headers = [
+            'Content-type' => 'text/csv',
+            'Content-Disposition' => "attachment; filename=$fileName",
+            'Pragma' => 'no-cache',
+            'Cache-Control' => 'must-revalidate, post-check=0, pre-check=0',
+            'Expires' => '0',
+        ];
+
+        $columns = ['Nama Lengkap','NIP', 'Gelar', 'Fakultas', 'Prodi', 'Bank', 'Nomer Rekening', 'Email', 'Nomer Whatsapp', 'Status'];
+
+        $callback = function () use ($data, $columns) {
+            $file = fopen('php://output', 'w');
+            fputcsv($file, $columns);
+
+            foreach ($data as $row) {
+                fputcsv($file, [
+                    $row->nama_lengkap,
+                    $row->nip,
+                    $row->gelar,
+                    $row->fakultas,
+                    $row->prodi,
+                    $row->nama_bank,
+                    $row->nomer_rekening,
                     $row->email,
                     $row->nomer_whatsapp,
                     $row->status,

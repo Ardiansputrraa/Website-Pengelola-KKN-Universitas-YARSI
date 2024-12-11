@@ -81,9 +81,9 @@
                             <li class="submenu-item"><a class="submenu-link"
                                 href="">Kelompok</a></li>
                                 <li class="submenu-item"><a class="submenu-link"
-                                    href="">Dpl</a></li>
+                                    href="{{ route('dpl') }}">Dpl</a></li>
                                 <li class="submenu-item"><a class="submenu-link"
-                                        href="">Mahasiswa</a></li>
+                                        href="{{ route('mahasiswa') }}">Mahasiswa</a></li>
                             @endif
                             
                         </ul>

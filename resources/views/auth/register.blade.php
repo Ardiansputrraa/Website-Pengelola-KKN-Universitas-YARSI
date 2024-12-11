@@ -114,7 +114,13 @@
                         text: "Akun " + role + " berhasil dibuat!",
                         confirmButtonText: "Oke",
                     }).then(() => {
-                        window.location.reload();
+                        if (role == "mahasiswa") {
+                            window.location.href = "{{ route('mahasiswa') }}"
+                        } else if (role == "dpl") {
+                            window.location.href = "{{ route('dpl') }}"
+                        } else {
+                            window.location.reload();
+                        }
                     });
                 },
                 error: function(xhr) {
