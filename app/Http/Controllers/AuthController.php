@@ -7,9 +7,7 @@ use App\Models\User;
 use App\Models\Admin;
 use App\Models\Mahasiswa;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\ValidationException;
@@ -18,12 +16,10 @@ use Illuminate\Validation\ValidationException;
 
 class AuthController extends Controller
 {
-    public function register(Request $request, User $User)
+    public function viewRegister(Request $request, User $User)
     {
 
-        if ($request->user()->cannot('viewRegister', $User)) {
-            abort(404);
-        }
+        $this->authorize('viewRegister', User::class);
 
         $role = $request->query('role');
         return view('auth.register', ['role' => $role]);
@@ -31,9 +27,7 @@ class AuthController extends Controller
 
     public function registerSave(Request $request)
     {
-        if ($request->user()->cannot('createAccount', User::class)) {
-            abort(404);
-        }
+        $this->authorize('createAccount', User::class);
 
         $validator = Validator::make($request->all(), [
             'username' => 'required|unique:users,username',
@@ -77,7 +71,7 @@ class AuthController extends Controller
         return response()->json(['success' => 'Registrasi berhasil.'], 200);
     }
 
-    public function login()
+    public function viewLogin()
     {
         return view('auth.login');
     }

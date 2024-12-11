@@ -37,11 +37,4 @@ composer.lock
 *.log
 /.phpunit.result.cache
 
-# Ignoring IDE specific files
-.idea
-.vscode
-
-# Ignoring node modules
-node_modules/
-npm-debug.log
 
