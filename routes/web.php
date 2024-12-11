@@ -28,6 +28,14 @@ Route::middleware(['auth'])->group(function () {
         Route::get('delete-data-mahasiswa/{user_id}', 'deleteDataMahasiswa')->name('delete.data.mahasiswa');
         Route::get('search-data-mahasiswa', 'searchDataMahasiswa')->name('search.data.mahasiswa');
         Route::get('download-data-mahasiswa', 'downloadDataMahasiswa')->name('download.data.mahasiswa');
+        
+        Route::get('dpl', 'viewDataDpl')->name('dpl');
+        Route::get('get-data-dpl', 'getDataDpl')->name('get.data.dpl');
+        Route::get('view-detail-data-dpl/{user_id}', 'viewDetailDataDpl')->name('view.detail.data.dpl');
+        Route::post('update-data-dpl', 'updateDataDpl')->name('update.data.dpl');
+        Route::get('delete-data-dpl/{user_id}', 'deleteDataDpl')->name('delete.data.dpl');
+        Route::get('search-data-dpl', 'searchDataDpl')->name('search.data.dpl');
+        Route::get('download-data-dpl', 'downloadDataDpl')->name('download.data.dpl');
     });
 });
 
