@@ -99,6 +99,30 @@ class AuthController extends Controller
         ], 200);
     }
 
+    public function ubahPassword(){
+        $user = Auth::user();
+        return view('auth.ubah-password', compact('user'));
+    }
+
+    public function updatePassword(Request $request)
+    {
+
+        $user = User::where('username', $request->username)->first();
+
+        if (!Hash::check($request->passwordLama, $user->password)) {
+            return response()->json([
+                'message' => 'Password lama tidak sesuai.',
+            ], 400);
+        }
+
+        $user->password = Hash::make($request->passwordBaru);
+        $user->save();
+
+        return response()->json([
+            'message' => 'Password berhasil diubah.',
+        ], 200);
+    }
+
     public function logout(Request $request)
     {
 

@@ -15,6 +15,8 @@ Route::middleware(['auth'])->group(function () {
     Route::controller(AuthController::class)->group(function () {
         Route::get('register', 'viewRegister')->name('register');
         Route::post('register-save', 'registerSave')->name('register.save');
+        Route::get('ubah-password', 'ubahPassword')->name('ubah.password');
+        Route::post('update-password', 'updatePassword')->name('update.password');
         Route::post('logout', [AuthController::class, 'logout'])->name('logout');
     });
 });
