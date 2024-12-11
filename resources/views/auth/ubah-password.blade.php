@@ -172,21 +172,21 @@
                             <div class="password mb-3">
                                 <label class="sr-only" for="signup-password">Password Lama</label>
                                 <input id="passwordLama" name="passwordLama" type="password"
-                                    class="form-control signup-password" placeholder="Password">
+                                    class="form-control signup-password" placeholder="Password Lama">
                                 <p id="helpPasswordLama" class="help is-hidden"></p>
 
                             </div>
                             <div class="password mb-3">
                                 <label class="sr-only" for="signup-password">Password Baru</label>
                                 <input id="passwordBaru" name="passwordBaru" type="password"
-                                    class="form-control signup-password" placeholder="Password">
+                                    class="form-control signup-password" placeholder="Password Baru">
                                 <p id="helpPasswordBaru" class="help is-hidden"></p>
 
                             </div>
                             <div class="password mb-3">
                                 <label class="sr-only" for="signup-password">Konfirmasi Password Baru</label>
                                 <input id="konfirmasiPassword" name="konfirmasiPassword" type="password"
-                                    class="form-control signup-password" placeholder="Konfirmasi Password">
+                                    class="form-control signup-password" placeholder="Konfirmasi Password Baru">
 
                                 <p id="helpKonfirmasiPassword" class="help is-hidden"></p>
 
