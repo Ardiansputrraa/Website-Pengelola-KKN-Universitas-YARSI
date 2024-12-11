@@ -11,9 +11,11 @@ use Illuminate\Support\Facades\Validator;
 
 class ProfileController extends Controller
 {
-    public function profile()
+    public function viewProfile()
     {
+
         $user = Auth::user();
+
         return view('profile.profile', compact('user'));
     }
 
@@ -21,7 +23,6 @@ class ProfileController extends Controller
     {
 
         $users = Auth::user();
-        Log::info($users);
 
         if ($users->role == 'admin') {
             if ($request->hasFile('foto')) {
@@ -37,11 +38,39 @@ class ProfileController extends Controller
                 $users->admin->foto = $path;
             }
 
+            $validator = Validator::make($request->all(), [
+                'email' => 'email|unique:admin,email,',
+            ]);
+
+            if ($validator->fails()) {
+                if ($validator->errors()->has('email')) {
+                    return response()->json(['message' => 'Email sudah digunakan!'], 422);
+                }
+                return response()->json(['errors' => $validator->errors()], 422);
+            }
+
             $users->admin->nama_lengkap = $request->namaLengkap;
-            $users->admin->email = $request->email;
+            if ($request->email !== null) {
+                $users->admin->email = $request->email;
+            }
             $users->admin->nomer_whatsapp = $request->nomerWhatsapp;
             $users->admin->save();
         } else if ($users->role == 'mahasiswa') {
+            $validator = Validator::make($request->all(), [
+                'email' => 'email|unique:mahasiswa,email,',
+                'npm' => 'unique:mahasiswa,npm,',
+            ]);
+
+            if ($validator->fails()) {
+                if ($validator->errors()->has('email')) {
+                    return response()->json(['message' => 'Email sudah digunakan!'], 422);
+                }
+                if ($validator->errors()->has('npm')) {
+                    return response()->json(['message' => 'NPM sudah digunakan!'], 422);
+                }
+                return response()->json(['errors' => $validator->errors()], 422);
+            }
+            
             if ($request->hasFile('foto')) {
                 if ($users->mahasiswa->foto && Storage::exists($users->mahasiswa->foto)) {
                     Storage::delete($users->mahasiswa->foto);
@@ -55,23 +84,34 @@ class ProfileController extends Controller
                 $users->mahasiswa->foto = $path;
             }
 
-            $validator = Validator::make($request->all(), [
-                'email' => 'email|unique:mahasiswa,email,',
-                'npm' => 'unique:mahasiswa,npm,',
-            ]);
-
-            if ($validator->fails()) {
-                return response()->json(['errors' => $validator->errors()], 422);
-            }
 
             $users->mahasiswa->nama_lengkap = $request->namaLengkap;
-            $users->mahasiswa->npm = $request->npm;
+            if ($request->npm !== null) {
+                $users->mahasiswa->npm = $request->npm;
+            }
             $users->mahasiswa->fakultas = $request->fakultas;
             $users->mahasiswa->prodi = $request->prodi;
-            $users->mahasiswa->email = $request->email;
+            if ($request->email !== null) {
+                $users->mahasiswa->email = $request->email;
+            }
             $users->mahasiswa->nomer_whatsapp = $request->nomerWhatsapp;
             $users->mahasiswa->save();
         } else if ($users->role == 'dpl') {
+            $validator = Validator::make($request->all(), [
+                'email' => 'email|unique:dpl,email,',
+                'nip' => 'unique:dpl,nip,',
+            ]);
+
+            if ($validator->fails()) {
+                if ($validator->errors()->has('email')) {
+                    return response()->json(['message' => 'Email sudah digunakan!'], 422);
+                }
+                if ($validator->errors()->has('nip')) {
+                    return response()->json(['message' => 'NIP sudah digunakan!'], 422);
+                }
+                return response()->json(['errors' => $validator->errors()], 422);
+            }
+
             if ($request->hasFile('foto')) {
                 if ($users->dpl->foto && Storage::exists($users->dpl->foto)) {
                     Storage::delete($users->dpl->foto);
@@ -85,15 +125,6 @@ class ProfileController extends Controller
                 $users->dpl->foto = $path;
             }
 
-            $validator = Validator::make($request->all(), [
-                'email' => 'email|unique:dpl,email,',
-                'nip' => 'unique:dpl,nip,',
-            ]);
-
-            if ($validator->fails()) {
-                return response()->json(['errors' => $validator->errors()], 422);
-            }
-            
             $users->dpl->nama_lengkap = $request->namaLengkap;
             if ($request->nip !== null) {
                 $users->dpl->nip = $request->nip;

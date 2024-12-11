@@ -2,65 +2,58 @@
 
 namespace App\Policies;
 
-use App\Models\Mahasiswa;
 use App\Models\User;
-use Illuminate\Auth\Access\Response;
+use App\Models\Mahasiswa;
+use Illuminate\Auth\Access\AuthorizationException;
 
 class MahasiswaPolicy
 {
-    /**
-     * Determine whether the user can view any models.
-     */
-    public function viewAny(User $user): bool
+
+    public function viewDataMahasiswa(User $user): bool
     {
-        return false;
+        if ($user->role !== 'admin') {
+            throw new AuthorizationException('Anda tidak memiliki hak akses untuk melihat halaman ini.');
+        }
+        return true;
     }
 
-    /**
-     * Determine whether the user can view the model.
-     */
-    public function view(User $user, Mahasiswa $mahasiswa): bool
+    public function viewDetailDataMahasiswa(User $user): bool
     {
-        return false;
+        if ($user->role !== 'admin') {
+            throw new AuthorizationException('Anda tidak memiliki hak akses untuk melihat halaman ini.');
+        }
+        return true;
     }
 
-    /**
-     * Determine whether the user can create models.
-     */
-    public function create(User $user): bool
+    public function updateDataMahasiswa(User $user): bool
     {
-        return false;
+        if ($user->role !== 'admin') {
+            throw new AuthorizationException('Anda tidak memiliki hak akses untuk mengupdate data.');
+        }
+        return true;
     }
 
-    /**
-     * Determine whether the user can update the model.
-     */
-    public function update(User $user, Mahasiswa $mahasiswa): bool
+    public function deleteDataMahasiswa(User $user): bool
     {
-        return false;
+        if ($user->role !== 'admin') {
+            throw new AuthorizationException('Anda tidak memiliki hak akses untuk menghapus data.');
+        }
+        return true;
     }
 
-    /**
-     * Determine whether the user can delete the model.
-     */
-    public function delete(User $user, Mahasiswa $mahasiswa): bool
+    public function searchDataMahasiswa(User $user): bool
     {
-        return false;
+        if ($user->role !== 'admin') {
+            throw new AuthorizationException('Anda tidak memiliki hak akses untuk mencari data.');
+        }
+        return true;
     }
 
-    /**
-     * Determine whether the user can restore the model.
-     */
-    public function restore(User $user, Mahasiswa $mahasiswa): bool
+    public function downloadDataMahasiswa(User $user): bool
     {
-        return false;
-    }
-
-    /**
-     * Determine whether the user can permanently delete the model.
-     */
-    public function forceDelete(User $user, Mahasiswa $mahasiswa): bool
-    {
-        return false;
+        if ($user->role !== 'admin') {
+            throw new AuthorizationException('Anda tidak memiliki hak akses untuk mendownload data.');
+        }
+        return true;
     }
 }

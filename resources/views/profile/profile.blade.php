@@ -9,16 +9,20 @@
             let form_data = new FormData();
             let role = "{{ $user->role }}";
             let file = $("#foto")[0].files[0];
-            let namaLengkap = $("#namaLengkap").val() || @json($user->getTableDatabase()->nama_lengkap);
+            let namaLengkap = $("#namaLengkap").val() || (@json($user->getTableDatabase()->nama_lengkap) === null ? "Nama Lengkap" :
+                @json($user->getTableDatabase()->nama_lengkap));
             let email = $("#email").val() || @json($user->getTableDatabase()->email);
-            let gelar = $("#gelar").val() || @json($user->getTableDatabase()->gelar);
+            let gelar = $("#gelar").val() || (@json($user->getTableDatabase()->gelar) === null ? "Gelar" :
+                @json($user->getTableDatabase()->gelar));
             let namaBank = $("#namaBank").val() || @json($user->getTableDatabase()->nama_bank);
-            let nomerRekening = $("#nomerRekening").val() || @json($user->getTableDatabase()->nomer_rekening);
+            let nomerRekening = $("#nomerRekening").val() || (@json($user->getTableDatabase()->nomer_rekening) === null ? "Nomer Rekening" :
+                @json($user->getTableDatabase()->nomer_rekening));
             let npm = $("#npm").val() || @json($user->getTableDatabase()->npm);
             let nip = $("#nip").val() || @json($user->getTableDatabase()->nip);
             let fakultas = $("#fakultas").val() || @json($user->getTableDatabase()->fakultas);
             let prodi = $("#prodi").val() || @json($user->getTableDatabase()->prodi);
-            let nomerWhatsapp = $("#nomerWhatsapp").val() || @json($user->getTableDatabase()->nomer_whatsapp);
+            let nomerWhatsapp = $("#nomerWhatsapp").val() ||
+                (@json($user->getTableDatabase()->nomer_whatsapp) === null ? "Nomer Whatsapp" : @json($user->getTableDatabase()->nomer_whatsapp));
 
             form_data.append("_token", "{{ csrf_token() }}");
             form_data.append("foto", file);
@@ -68,7 +72,32 @@
                     });
                 },
                 error: function(xhr) {
-                    console.log(xhr.responseText)
+                    const response = JSON.parse(xhr.responseText);
+
+                    if (response.message === "Email sudah digunakan!") {
+                        Swal.fire({
+                            title: "Update Gagal",
+                            text: "Email tersebut telah terdaftar. Silakan gunakan email lain!",
+                            icon: "error",
+                            confirmButtonText: "Oke",
+                        });
+                    } else if (response.message === "NPM sudah digunakan!") {
+                        Swal.fire({
+                            title: "Update Gagal",
+                            text: "NPM tersebut telah terdaftar. Silakan gunakan NPM lain!",
+                            icon: "error",
+                            confirmButtonText: "Oke",
+                        });
+                    } else if (response.message === "NIP sudah digunakan!") {
+                        Swal.fire({
+                            title: "Update Gagal",
+                            text: "NIP tersebut telah terdaftar. Silakan gunakan NIP lain!",
+                            icon: "error",
+                            confirmButtonText: "Oke",
+                        });
+                    } else {
+                        console.log("Error lain:", response.errors);
+                    }
                 }
             });
         }
