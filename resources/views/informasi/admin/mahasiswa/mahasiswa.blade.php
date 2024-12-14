@@ -20,8 +20,8 @@
                 console.log(mahasiswaData);
                 mahasiswaData.forEach(data => {
                     let statusClass =
-                        data.status === "Terdaftar" ? "bg-success" :
-                        data.status === "Diproses" ? "bg-warning" : "bg-danger";
+                        data.status === "terdaftar" ? "bg-success" :
+                        data.status === "diproses" ? "bg-warning" : "bg-danger";
 
                     let tabelTemp = `
                         <tr>
@@ -111,8 +111,8 @@
                                                 <td class="cell">${data[i]["prodi"]}</td>
                                                <td class="cell">
                                                     <span class="badge 
-                                                        ${data[i]["status"] === "Terdaftar" ? 'bg-success' : 
-                                                        data[i]["status"] === "Diproses" ? 'bg-warning' : 'bg-danger'}">
+                                                        ${data[i]["status"] === "terdaftar" ? 'bg-success' : 
+                                                        data[i]["status"] === "diproses" ? 'bg-warning' : 'bg-danger'}">
                                                         ${data[i]["status"]}
                                                     </span>
                                                 </td>

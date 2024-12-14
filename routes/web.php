@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\AdminController;
@@ -43,7 +44,7 @@ Route::middleware(['auth'])->group(function () {
 
 Route::middleware(['auth'])->group(function () {
     Route::controller(MahasiswaController::class)->group(function () {
-        
+        Route::post('daftar-kkn-reguler', 'daftarKknReguler')->name('daftar.kkn.reguler');
     });
 });
 
@@ -51,5 +52,12 @@ Route::middleware(['auth'])->group(function () {
     Route::controller(ProfileController::class)->group(function () {
         Route::get('profile', 'viewProfile')->name('profile');
         Route::post('update-profile', 'updateProfile')->name('profile.update');
+    });
+});
+
+Route::middleware(['auth'])->group(function () {
+    Route::get('/pwngajuan-kkn', function () {
+        $user = Auth::user();
+        return view('daftar.daftar-kkn', compact('user'));
     });
 });

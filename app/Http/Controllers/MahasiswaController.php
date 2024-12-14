@@ -2,14 +2,59 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Mahasiswa;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Validator;
 
 class MahasiswaController extends Controller
 {
-    public function profile()
+    public function daftarKknReguler(Request $request)
     {
-        $user = Auth::user();
-        return view('profile.profile', compact('user'));
+        $user_id = $request->user_id;
+        $mahasiswa = Mahasiswa::where('user_id', $user_id)->first();
+
+        $validator = Validator::make($request->all(), [
+            'email' => 'email|unique:mahasiswa,email,'. $mahasiswa->id,
+            'npm' => 'unique:mahasiswa,npm,'. $mahasiswa->id,
+        ]);
+
+        if ($validator->fails()) {
+            if ($validator->errors()->has('email')) {
+                return response()->json(['message' => 'Email sudah digunakan!'], 422);
+            }
+            if ($validator->errors()->has('npm')) {
+                return response()->json(['message' => 'NPM sudah digunakan!'], 422);
+            }
+            return response()->json(['errors' => $validator->errors()], 422);
+        }
+        
+        if ($mahasiswa) {
+            $mahasiswa->nama_lengkap = $request->namaLengkap;
+            $mahasiswa->npm = $request->npm;
+            $mahasiswa->fakultas = $request->fakultas;
+            $mahasiswa->prodi = $request->prodi;
+            $mahasiswa->email = $request->email;
+            $mahasiswa->nomer_whatsapp = $request->nomerWhatsapp;
+            $mahasiswa->status = "diproses";
+
+            if ($request->hasFile('file_ktm')) {
+                if ($mahasiswa->file_ktm && Storage::exists($mahasiswa->file_ktm)) {
+                    Storage::delete($mahasiswa->file_ktm);
+                }
+
+                $image = $request->file('file_ktm');
+                $imageName = $mahasiswa->nama_lengkap . '.' . $image->getClientOriginalExtension();
+                $path = 'storage/images/ktm/' . $imageName;
+                $image->move(public_path('storage/images/ktm'), $imageName);
+
+                $mahasiswa->file_ktm = $path;
+            }
+
+            $mahasiswa->update();
+
+            return response()->json(['msg' => 'Data Mahasiswa Berhasil Diubah.'], 200);
+        }
     }
 }

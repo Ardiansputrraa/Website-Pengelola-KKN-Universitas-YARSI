@@ -214,8 +214,8 @@
                                     <div class="col-md-6">
                                         <label class="form-label"><strong>Kartu Tanda Mahasiswa</strong></label>
                                         <div>
-                                            @if (!empty($mahasiswa->ktm))
-                                                <img src="{{ asset(Auth::user()->getTableDatabase()->foto) }}"
+                                            @if (!empty($mahasiswa->file_ktm))
+                                                <img src="{{ asset($mahasiswa->file_ktm) }}"
                                                     alt="Kartu Tanda Mahasiswa" class="img-fluid"
                                                     style="max-width: 100%; height: 250px;" />
                                             @else
