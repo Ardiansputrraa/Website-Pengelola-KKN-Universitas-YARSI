@@ -11,39 +11,20 @@
             <ul class="app-menu list-unstyled accordion" id="menu-accordion">
                 @if (Auth::check() && Auth::user()->role == 'mahasiswa')
                     @if (Auth::check() && Auth::user()->getTableDatabase()->status == 'belum terdaftar')
-                        <li class="nav-item has-submenu">
-                            <!--//Bootstrap Icons: https://icons.getbootstrap.com/ -->
-                            <a class="nav-link submenu-toggle" href="#" data-bs-toggle="collapse"
-                                data-bs-target="#submenu-1" aria-expanded="false" aria-controls="submenu-1">
-                                <span class="nav-icon">
-                                    <!--//Bootstrap Icons: https://icons.getbootstrap.com/ -->
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                    <li class="nav-item">
+                        <!--//Bootstrap Icons: https://icons.getbootstrap.com/ -->
+                        <a class="nav-link" href="/pwngajuan-kkn">
+                            <span class="nav-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                                         fill="currentColor" class="bi bi-person-bounding-box" viewBox="0 0 16 16">
                                         <path
                                             d="M1.5 1a.5.5 0 0 0-.5.5v3a.5.5 0 0 1-1 0v-3A1.5 1.5 0 0 1 1.5 0h3a.5.5 0 0 1 0 1zM11 .5a.5.5 0 0 1 .5-.5h3A1.5 1.5 0 0 1 16 1.5v3a.5.5 0 0 1-1 0v-3a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 1-.5-.5M.5 11a.5.5 0 0 1 .5.5v3a.5.5 0 0 0 .5.5h3a.5.5 0 0 1 0 1h-3A1.5 1.5 0 0 1 0 14.5v-3a.5.5 0 0 1 .5-.5m15 0a.5.5 0 0 1 .5.5v3a1.5 1.5 0 0 1-1.5 1.5h-3a.5.5 0 0 1 0-1h3a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 1 .5-.5" />
                                         <path
                                             d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zm8-9a3 3 0 1 1-6 0 3 3 0 0 1 6 0" />
                                     </svg>
-                                </span>
-                                <span class="nav-link-text">Pengajuan KKN</span>
-                                <span class="submenu-arrow">
-                                    <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-chevron-down"
-                                        fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                                        <path fill-rule="evenodd"
-                                            d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z" />
-                                    </svg>
-                                </span><!--//submenu-arrow-->
-                            </a><!--//nav-link-->
-                            <div id="submenu-1" class="collapse submenu submenu-1" data-bs-parent="#menu-accordion">
-                                <ul class="submenu-list list-unstyled">
-                                    <li class="submenu-item"><a class="submenu-link" href="/registrasi-kkn-reguler">KKN
-                                            Reguler</a>
-                                    </li>
-                                    <li class="submenu-item"><a class="submenu-link" href="account.html">KKN
-                                            Konversi</a></li>
-                                </ul>
-                            </div>
-                        </li><!--//nav-item-->
+                            </span>
+                            <span class="nav-link-text">Pengajuan KKN</span>
+                        </a><!--//nav-link-->
                     @endif
                 @endif
                 <li class="nav-item has-submenu">
@@ -207,3 +188,4 @@
 </div><!--//app-sidepanel-footer-->
 </div><!--//sidepanel-inner-->
 </div><!--//app-sidepanel-->
+

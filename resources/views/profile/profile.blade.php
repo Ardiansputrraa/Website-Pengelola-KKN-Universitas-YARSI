@@ -80,6 +80,10 @@
                             text: "Email tersebut telah terdaftar. Silakan gunakan email lain!",
                             icon: "error",
                             confirmButtonText: "Oke",
+                            customClass: {
+                                confirmButton: 'btn app-btn-primary',
+                                cancelButton: 'btn app-btn-secondary',
+                            },
                         });
                     } else if (response.message === "NPM sudah digunakan!") {
                         Swal.fire({
@@ -87,6 +91,10 @@
                             text: "NPM tersebut telah terdaftar. Silakan gunakan NPM lain!",
                             icon: "error",
                             confirmButtonText: "Oke",
+                            customClass: {
+                                confirmButton: 'btn app-btn-primary',
+                                cancelButton: 'btn app-btn-secondary',
+                            },
                         });
                     } else if (response.message === "NIP sudah digunakan!") {
                         Swal.fire({
@@ -94,6 +102,10 @@
                             text: "NIP tersebut telah terdaftar. Silakan gunakan NIP lain!",
                             icon: "error",
                             confirmButtonText: "Oke",
+                            customClass: {
+                                confirmButton: 'btn app-btn-primary',
+                                cancelButton: 'btn app-btn-secondary',
+                            },
                         });
                     } else {
                         console.log("Error lain:", response.errors);
