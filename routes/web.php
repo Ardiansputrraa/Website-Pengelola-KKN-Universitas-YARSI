@@ -42,6 +42,7 @@ Route::middleware(['auth'])->group(function () {
 
         Route::get('view-data-kelompok', 'viewDataKelompok')->name('view.data.kelompok');
         Route::get('view-create-data-kelompok', 'viewCreateDataKelompok')->name('view-create.data.kelompok');
+        Route::get('view-detail-data-kelompok', 'viewDetailDataKelompok')->name('view-detail.data.kelompok');
     });
 });
 

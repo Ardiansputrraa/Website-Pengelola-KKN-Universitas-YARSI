@@ -6,17 +6,11 @@
     <x-header></x-header>
     <script>
         $(document).ready(function() {
-            pengajuanKKNReguler();
+
         });
 
         function pengajuanKKNReguler() {
-            $('#kknReguler').on('click', function() {
-                $('#pengajuanKKNRegulerModal').modal('show');
-
-                $('#pengajuanKKNRegulerModal .modal-title').text('Pengajuan KKN Reguler');
-                $('#pengajuanKKNRegulerModal #recipient-name').val('');
-                $('#pengajuanKKNRegulerModal #message-text').val('');
-            });
+            $('#pengajuanKKNRegulerModal').modal('show');;
         }
 
         function daftarKKNReguler() {
@@ -240,7 +234,7 @@
                                 Silahkan anda melakukan pengajuan KKN
                             </div>
                             <div class="mb-3">
-                                <button type="button" id="kknReguler" class="btn app-btn-primary">Pengajuan KKN
+                                <button type="button" onclick="pengajuanKKNReguler()" class="btn app-btn-primary">Pengajuan KKN
                                     Reguler</button>
                             </div>
                             <div class="mb-3">
@@ -258,7 +252,7 @@
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="pengajuanKKNRegulerModalLabel">New message</h5>
+                        <h5 class="modal-title" id="pengajuanKKNRegulerModalLabel">Pengajuan KKN Reguler</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
