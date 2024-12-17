@@ -313,4 +313,14 @@ class AdminController extends Controller
 
         ));
     }
+
+    public function viewDetailDataKelompok()
+    {
+        $dataMahasiswa = Mahasiswa::where('status', 'diproses')->get();
+        
+
+        return view('informasi.admin.kelompok.detail-kelompok', compact(
+            'dataMahasiswa',
+        ));
+    }
 }

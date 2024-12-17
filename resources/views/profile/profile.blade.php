@@ -240,7 +240,7 @@
                                                         Fakultas Psikologi</option>
                                                     <option value="Fakultas Ekonomi"
                                                         {{ $user->getTableDatabase()->fakultas == 'Fakultas Ekonomi' ? 'selected' : '' }}>
-                                                        Fakultas Ekonomi</option>
+                                                        Fakultas Ekonomi dan Bisnis</option>
                                                     <option value="Fakultas Teknologi Informasi"
                                                         {{ $user->getTableDatabase()->fakultas == 'Fakultas Teknologi Informasi' ? 'selected' : '' }}>
                                                         Fakultas Teknologi Informasi</option>
@@ -248,7 +248,6 @@
                                                         {{ $user->getTableDatabase()->fakultas == 'Fakultas Hukum' ? 'selected' : '' }}>
                                                         Fakultas Hukum</option>
                                                 </select>
-
                                             </div>
                                         </div>
                                     </div>

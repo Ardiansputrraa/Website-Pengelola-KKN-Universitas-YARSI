@@ -62,7 +62,6 @@
                                         <div class="col-md-14">
                                             <label for="namaDosen" class="form-label"><strong>Nama Dosen</strong></label>
                                             <select class="form-control" id="namaDosen" name="namaDosen">
-                                                <option disabled selected>Pilih Dosen</option>
                                                 @foreach ($dpls as $dpl)
                                                     <option value={{ $dpl->user_id }}>
                                                         {{ $dpl->nama_lengkap }}, {{ $dpl->gelar }}
@@ -110,7 +109,6 @@
                                         <div class="col-md-6">
                                             <label for="mahasiswaFK" class="form-label"><strong>Mahasiswa FK</strong></label>
                                             <select class="form-control" id="mahasiswaFK" name="mahasiswaFK"  multiple size="6" style="height: 120px;">
-
                                                 @foreach ($mahasiswaFK as $mahasiswa)
                                                     <option value={{ $mahasiswa->user_id }}>
                                                         {{ $mahasiswa->nama_lengkap }} - {{ $mahasiswa->npm }}
