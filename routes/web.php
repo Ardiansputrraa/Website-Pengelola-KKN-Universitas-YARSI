@@ -24,7 +24,7 @@ Route::middleware(['auth'])->group(function () {
 
 Route::middleware(['auth'])->group(function () {
     Route::controller(AdminController::class)->group(function () {
-        Route::get('mahasiswa', 'viewDataMahasiswa')->name('mahasiswa');
+        Route::get('view-data-mahasiswa', 'viewDataMahasiswa')->name('view.data.mahasiswa');
         Route::get('get-data-mahasiswa', 'getDataMahasiswa')->name('get.data.mahasiswa');
         Route::get('view-detail-data-mahasiswa/{user_id}', 'viewDetailDataMahasiswa')->name('view.detail.data.mahasiswa');
         Route::post('update-data-mahasiswa', 'updateDataMahasiswa')->name('update.data.mahasiswa');
@@ -32,13 +32,16 @@ Route::middleware(['auth'])->group(function () {
         Route::get('search-data-mahasiswa', 'searchDataMahasiswa')->name('search.data.mahasiswa');
         Route::get('download-data-mahasiswa', 'downloadDataMahasiswa')->name('download.data.mahasiswa');
         
-        Route::get('dpl', 'viewDataDpl')->name('dpl');
+        Route::get('view-data-dpl', 'viewDataDpl')->name('view.data.dpl');
         Route::get('get-data-dpl', 'getDataDpl')->name('get.data.dpl');
         Route::get('view-detail-data-dpl/{user_id}', 'viewDetailDataDpl')->name('view.detail.data.dpl');
         Route::post('update-data-dpl', 'updateDataDpl')->name('update.data.dpl');
         Route::get('delete-data-dpl/{user_id}', 'deleteDataDpl')->name('delete.data.dpl');
         Route::get('search-data-dpl', 'searchDataDpl')->name('search.data.dpl');
         Route::get('download-data-dpl', 'downloadDataDpl')->name('download.data.dpl');
+
+        Route::get('view-data-kelompok', 'viewDataKelompok')->name('view.data.kelompok');
+        Route::get('view-create-data-kelompok', 'viewCreateDataKelompok')->name('view-create.data.kelompok');
     });
 });
 

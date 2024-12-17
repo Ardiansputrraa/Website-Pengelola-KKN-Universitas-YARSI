@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Dpl;
 use App\Models\User;
 use App\Models\Mahasiswa;
+use App\Models\KelompokKKN;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Response;
@@ -196,10 +197,10 @@ class AdminController extends Controller
         }
     }
 
-    public function deleteDataDpl($id, Dpl $mahasiswa)
+    public function deleteDataDpl($id, Dpl $dpl)
     {
 
-        $this->authorize('deleteDataDpl', $mahasiswa);
+        $this->authorize('deleteDataDpl', $dpl);
 
         DB::beginTransaction();
         try {
@@ -215,10 +216,10 @@ class AdminController extends Controller
         }
     }
 
-    public function searchDataDpl(Request $request, Dpl $mahasiswa)
+    public function searchDataDpl(Request $request, Dpl $dpl)
     {
 
-        $this->authorize('searchDataDpl', $mahasiswa);
+        $this->authorize('searchDataDpl', $dpl);
 
         $keyword = $request->get('keyword');
         $results = Dpl::where('nama_lengkap', 'LIKE', '%' . $keyword . '%')
@@ -230,10 +231,10 @@ class AdminController extends Controller
         return response()->json($results);
     }
 
-    public function downloadDataDpl(Dpl $mahasiswa)
+    public function downloadDataDpl(Dpl $dpl)
     {
 
-        $this->authorize('downloadDataDpl', $mahasiswa);
+        $this->authorize('downloadDataDpl', $dpl);
         $data = Dpl::all();
 
 
@@ -247,7 +248,7 @@ class AdminController extends Controller
             'Expires' => '0',
         ];
 
-        $columns = ['Nama Lengkap','NIP', 'Gelar', 'Fakultas', 'Prodi', 'Bank', 'Nomer Rekening', 'Email', 'Nomer Whatsapp', 'Status'];
+        $columns = ['Nama Lengkap', 'NIP', 'Gelar', 'Fakultas', 'Prodi', 'Bank', 'Nomer Rekening', 'Email', 'Nomer Whatsapp', 'Status'];
 
         $callback = function () use ($data, $columns) {
             $file = fopen('php://output', 'w');
@@ -271,5 +272,45 @@ class AdminController extends Controller
         };
 
         return Response::stream($callback, 200, $headers);
+    }
+
+    public function viewDataKelompok()
+    {
+        $kelompok = KelompokKKn::all();
+        return view('informasi.admin.kelompok.kelompok', compact('kelompok'));
+    }
+
+    public function viewCreateDataKelompok()
+    {
+        $dpls = Dpl::where('status', 'belum terdaftar')->get();
+        $mahasiswaFK = Mahasiswa::where('status', 'diproses')
+            ->where('fakultas', 'Fakultas Kedokteran')
+            ->get();
+        $mahasiswaFKG = Mahasiswa::where('status', 'diproses')
+            ->where('fakultas', 'Fakultas Kedokteran Gigi')
+            ->get();
+        $mahasiswaPsikologi = Mahasiswa::where('status', 'diproses')
+            ->where('fakultas', 'Fakultas Psikologi')
+            ->get();
+        $mahasiswaFEB = Mahasiswa::where('status', 'diproses')
+            ->where('fakultas', 'Fakultas Ekonomi dan Bisnis')
+            ->get();
+        $mahasiswaFTI = Mahasiswa::where('status', 'diproses')
+            ->where('fakultas', 'Fakultas Teknologi Informasi')
+            ->get();
+        $mahasiswaFH = Mahasiswa::where('status', 'diproses')
+            ->where('fakultas', 'Fakultas Hukum')
+            ->get();
+
+        return view('informasi.admin.kelompok.buat-kelompok', compact(
+            'dpls',
+            'mahasiswaFK',
+            'mahasiswaFKG',
+            'mahasiswaPsikologi',
+            'mahasiswaFEB',
+            'mahasiswaFTI',
+            'mahasiswaFH',
+
+        ));
     }
 }

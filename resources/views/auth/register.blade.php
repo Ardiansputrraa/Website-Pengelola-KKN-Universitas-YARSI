@@ -115,9 +115,9 @@
                         confirmButtonText: "Oke",
                     }).then(() => {
                         if (role == "mahasiswa") {
-                            window.location.href = "{{ route('mahasiswa') }}"
+                            window.location.href = "{{ route('view.data.mahasiswa') }}"
                         } else if (role == "dpl") {
-                            window.location.href = "{{ route('dpl') }}"
+                            window.location.href = "{{ route('view.data.dpl') }}"
                         } else {
                             window.location.reload();
                         }

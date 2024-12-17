@@ -37,10 +37,10 @@
                                     <a class="btn-sm" href="/view-detail-data-mahasiswa/${data.user_id}" style="text-decoration: none; color: inherit;">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                             class="bi bi-eye" viewBox="0 0 16 16">
-                                            <path d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8zM8 13c-3.5 0-6-3.5-6-3.5S4.5 4 8 4s6 3.5 6 3.5S11.5 13 8 13zm0-1.5a3.5 3.5 0 1 1 0-7 3.5 3.5 0 0 1 0 7z" />
-                                            <path d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5z" />
+                                            <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
+                                            <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5z"/>
                                         </svg>
-                                        Lihat
+                                        Edit
                                     </a>
                                     <button class="btn-sm" onclick="deleteDataMahasiswa('${data.user_id}')" style="border: none; background: none; color: inherit; cursor: pointer;">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
@@ -121,10 +121,10 @@
                                                         <a class="btn-sm" href="/view-detail-data-mahasiswa/${data[i]["user_id"]}" style="text-decoration: none; color: inherit;">
                                                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                                                 class="bi bi-eye" viewBox="0 0 16 16">
-                                                                <path d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8zM8 13c-3.5 0-6-3.5-6-3.5S4.5 4 8 4s6 3.5 6 3.5S11.5 13 8 13zm0-1.5a3.5 3.5 0 1 1 0-7 3.5 3.5 0 0 1 0 7z" />
-                                                                <path d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5z" />
+                                                                <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
+                                                                <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5z"/>
                                                             </svg>
-                                                            Lihat
+                                                            Edit
                                                         </a>
                                                         <button class="btn-sm" onclick="deleteDataMahasiswa('${data[i]["user_id"]}')" style="border: none; background: none; color: inherit; cursor: pointer;">
                                                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
@@ -193,7 +193,7 @@
                                             <path fill-rule="evenodd"
                                                 d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3z" />
                                         </svg>
-                                        Download CSV
+                                        Download Excel
                                     </a>
                                 </div>
                             </div><!--//row-->
@@ -201,6 +201,7 @@
                     </div><!--//col-auto-->
 
                 </div><!--//row-->
+
                 <div class="tab-content" id="orders-table-tab-content">
                     <div class="tab-pane fade show active" id="orders-all" role="tabpanel"
                         aria-labelledby="orders-all-tab">
@@ -228,10 +229,7 @@
 
                             </div><!--//app-card-body-->
                         </div><!--//app-card-->
-
-
                     </div><!--//tab-pane-->
-
                 </div>
 
             </div><!--//app-content-->

@@ -260,7 +260,7 @@
                                         <button class="btn app-btn-primary me-2" type="button"
                                             onclick="updateDataDpl()">Update
                                             Data</button>
-                                        <a class="btn app-btn-secondary" href="{{ route('dpl') }}">Kembali</a>
+                                        <a class="btn app-btn-secondary" href="{{ route('view.data.dpl') }}">Kembali</a>
                                     </div>
                                 </div>
                             </div>
