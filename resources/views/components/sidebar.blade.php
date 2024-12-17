@@ -60,11 +60,11 @@
                             @endif
                             @if (Auth::check() && Auth::user()->role == 'admin')
                             <li class="submenu-item"><a class="submenu-link"
-                                href="">Kelompok</a></li>
+                                href="{{ route('view.data.kelompok') }}">Kelompok</a></li>
                                 <li class="submenu-item"><a class="submenu-link"
-                                    href="{{ route('dpl') }}">Dpl</a></li>
+                                    href="{{ route('view.data.dpl') }}">Dpl</a></li>
                                 <li class="submenu-item"><a class="submenu-link"
-                                        href="{{ route('mahasiswa') }}">Mahasiswa</a></li>
+                                        href="{{ route('view.data.mahasiswa') }}">Mahasiswa</a></li>
                             @endif
                             
                         </ul>

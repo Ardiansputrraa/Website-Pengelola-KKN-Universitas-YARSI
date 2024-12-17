@@ -229,7 +229,7 @@
                                         <button class="btn app-btn-primary me-2" type="button"
                                             onclick="updateDataMahasiswa()">Update
                                             Data</button>
-                                        <a class="btn app-btn-secondary" href="{{ route('mahasiswa') }}">Kembali</a>
+                                        <a class="btn app-btn-secondary" href="{{ route('view.data.mahasiswa') }}">Kembali</a>
                                     </div>
                                 </div>
                             </div>
