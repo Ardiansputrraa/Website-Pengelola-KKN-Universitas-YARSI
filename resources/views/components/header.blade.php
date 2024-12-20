@@ -23,9 +23,6 @@
 <script src="assets/plugins/chart.js/chart.min.js"></script>
 <script src="assets/js/index-charts.js"></script>
 
-<!-- Javascript -->          
-<script src="assets/plugins/popper.min.js"></script>
-<script src="assets/plugins/bootstrap/js/bootstrap.min.js"></script> 
 
 <!-- Page Specific JS -->
 <script src="{{ asset('assets/ja/app.js') }}"></script>
@@ -34,3 +31,6 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<!-- Boostrap -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>

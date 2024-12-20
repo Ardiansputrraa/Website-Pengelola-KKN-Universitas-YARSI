@@ -10,7 +10,7 @@ class CreateKelompokKknTable extends Migration
     {
         Schema::create('kelompok_kkn', function (Blueprint $table) {
             $table->id();
-            $table->string('nama_kelompok');
+            $table->string('nama_kelompok')->unique();
             $table->string('lokasi')->nullable();
             $table->foreignId('dpl_id')->constrained('dpl');
             $table->timestamps();

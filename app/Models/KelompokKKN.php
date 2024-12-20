@@ -17,12 +17,12 @@ class KelompokKKN extends Model
 
     public function dpl()
     {
-        return $this->belongsTo(Dpl::class);
+        return $this->belongsTo(Dpl::class, 'dpl_id', 'id');
     }
 
     public function kelompokMahasiswa()
     {
-        return $this->hasMany(KelompokMahasiswa::class);
+        return $this->hasMany(KelompokMahasiswa::class, 'kelompok_kkn_id', 'id');
     }
 
     public function logbook()

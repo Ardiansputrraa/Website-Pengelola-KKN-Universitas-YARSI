@@ -11,9 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('tanggal_kegiatan', function (Blueprint $table) {
+        Schema::create('kalender_kegiatan', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained('users');
             $table->date('tanggal');
             $table->time('waktu');
             $table->string('kegiatan');
@@ -26,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('tanggal_kegiatan');
+        Schema::dropIfExists('kalender_kegiatan');
     }
 };

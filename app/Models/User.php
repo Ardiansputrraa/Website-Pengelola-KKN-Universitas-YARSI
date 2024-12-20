@@ -61,10 +61,6 @@ class User extends Authenticatable
         return $this->hasOne(Dpl::class, 'user_id', 'id');
     }
 
-    public function tanggalKegiatan()
-    {
-        return $this->hasMany(TanggalKegiatan::class);
-    }
 
     public function getTableDatabase()
     {
