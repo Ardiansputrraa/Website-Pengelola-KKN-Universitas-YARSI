@@ -238,7 +238,7 @@
                                                     <option value="Fakultas Psikologi"
                                                         {{ $user->getTableDatabase()->fakultas == 'Fakultas Psikologi' ? 'selected' : '' }}>
                                                         Fakultas Psikologi</option>
-                                                    <option value="Fakultas Ekonomi"
+                                                    <option value="Fakultas Ekonomi dan Bisnis"
                                                         {{ $user->getTableDatabase()->fakultas == 'Fakultas Ekonomi' ? 'selected' : '' }}>
                                                         Fakultas Ekonomi dan Bisnis</option>
                                                     <option value="Fakultas Teknologi Informasi"

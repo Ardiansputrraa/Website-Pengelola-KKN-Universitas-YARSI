@@ -16,11 +16,11 @@ class KelompokMahasiswa extends Model
 
     public function kelompokKkn()
     {
-        return $this->belongsTo(KelompokKkn::class);
+        return $this->hasMany(KelompokKKN::class, 'dpl_id', 'id');
     }
 
     public function mahasiswa()
     {
-        return $this->belongsTo(Mahasiswa::class);
+        return $this->belongsTo(Mahasiswa::class, 'mahasiswa_id', 'id');
     }
 }

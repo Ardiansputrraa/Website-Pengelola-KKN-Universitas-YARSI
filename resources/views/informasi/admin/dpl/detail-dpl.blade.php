@@ -105,7 +105,7 @@
         <div class="app-content pt-3 p-md-3 p-lg-4">
             <div class="container-xl">
 
-                <h1 class="app-page-title">Profil Mahasiswa</h1>
+                <h1 class="app-page-title">Profil DPL</h1>
                 <div class="row gy-4">
                     <div class="col-12 col-lg-12">
                         <div class="app-card app-card-account shadow-sm d-flex flex-column align-items-start">

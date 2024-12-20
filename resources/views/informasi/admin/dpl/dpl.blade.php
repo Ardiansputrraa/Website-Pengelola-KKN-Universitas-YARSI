@@ -69,7 +69,7 @@
                 success: function(response) {
                     Swal.fire({
                         title: "Berhasil",
-                        text: "Data dPL Berasil Dihapus!",
+                        text: "Data DPL Berasil Dihapus!",
                         icon: "success",
                         confirmButtonText: "Oke",
                     }).then((result) => {

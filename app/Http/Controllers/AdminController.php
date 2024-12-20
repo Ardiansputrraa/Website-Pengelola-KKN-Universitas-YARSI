@@ -7,6 +7,7 @@ use App\Models\User;
 use App\Models\Mahasiswa;
 use App\Models\KelompokKKN;
 use Illuminate\Http\Request;
+use App\Models\KelompokMahasiswa;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Validator;
@@ -276,9 +277,10 @@ class AdminController extends Controller
 
     public function viewDataKelompok()
     {
-        $kelompok = KelompokKKn::all();
+        $kelompok = KelompokKKN::with(['dpl'])->withCount('kelompokMahasiswa')->get();
         return view('informasi.admin.kelompok.kelompok', compact('kelompok'));
     }
+
 
     public function viewCreateDataKelompok()
     {
@@ -310,17 +312,61 @@ class AdminController extends Controller
             'mahasiswaFEB',
             'mahasiswaFTI',
             'mahasiswaFH',
-
         ));
     }
 
-    public function viewDetailDataKelompok()
+    public function createKelompokKKN(Request $request)
     {
-        $dataMahasiswa = Mahasiswa::where('status', 'diproses')->get();
-        
+        $validator = Validator::make($request->all(), [
+            'nama_kelompok' => 'unique:kelompok_kkn,nama_kelompok,',
+        ]);
+
+        if ($validator->fails()) {
+            if ($validator->errors()->has('nama_kelompok')) {
+                return response()->json(['message' => 'Nama kelompok telah digunakan!'], 422);
+            }
+            return response()->json(['errors' => $validator->errors()], 422);
+        }
+
+        $kelompokKKN = KelompokKKN::create([
+            'nama_kelompok' => $request->nama_kelompok,
+            'lokasi' => $request->lokasi,
+            'dpl_id' => $request->dpl_id,
+        ]);
+
+        $dpl = Dpl::find($request->dpl_id);
+        $dpl->update([
+            'status' => "terdaftar",
+        ]);
+
+        return response()->json([
+            'success' => 'Buat kelompok berhasil.',
+            'kelompok_kkn_id' => $kelompokKKN->id, 
+        ], 200);
+    }
+
+    public function addMahasiswaToKelompokKKN(Request $request)
+    {
+        $kelompokMahasiswa = KelompokMahasiswa::create([
+            'kelompok_kkn_id' => $request->kelompok_kkn_id,
+            'mahasiswa_id' => $request->mahasiswa_id,
+        ]);
+        $mahasiswa = Mahasiswa::find($request->mahasiswa_id);
+        $mahasiswa->update([
+            'status' => "terdaftar",
+        ]);
+        return response()->json(['success' => 'Buat kelompok berhasil.'], 200);
+    }
+
+    public function viewDetailDataKelompok($id)
+    {
+        $dpls = Dpl::where('status', 'belum terdaftar')->get();
+        $mahasiswa = Mahasiswa::where('status', 'diproses')->get();
+        $kelompokKKN = KelompokKKN::where('id', $id)->first();
+        $kelompokMahasiswa = KelompokMahasiswa::where('kelompok_kkn_id', $id)->get();
 
         return view('informasi.admin.kelompok.detail-kelompok', compact(
-            'dataMahasiswa',
+            'mahasiswa', 'kelompokKKN', 'kelompokMahasiswa', 'dpls'
         ));
     }
 }
