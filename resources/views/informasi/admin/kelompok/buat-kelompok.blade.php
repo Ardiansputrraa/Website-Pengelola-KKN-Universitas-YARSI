@@ -64,6 +64,17 @@
                     .removeClass("is-safe")
                     .addClass("is-danger");
             }
+            validasi = mahasiswaFK.length + mahasiswaFKG.length + mahasiswaFEB.length + mahasiswaFH.length + mahasiswaFTI
+                .length + mahasiswaPsikologi.length;
+            if (validasi <= 0) {
+                Swal.fire({
+                    icon: "error",
+                    title: "Gagal",
+                    text: "Belum memilih mahasiswa.",
+                    confirmButtonText: "Tutup",
+                });
+                return;
+            }
 
             $.ajax({
                 type: "POST",
@@ -75,7 +86,7 @@
                     dpl_id: dplId,
                 },
                 success: function(response) {
-                    let kelompok_kkn_id = response.kelompok_kkn_id; 
+                    let kelompok_kkn_id = response.kelompok_kkn_id;
 
                     for (let i = 0; i < mahasiswaFK.length; i++) {
                         $.ajax({
@@ -87,26 +98,82 @@
                                 mahasiswa_id: mahasiswaFK[i],
                             },
                             success: function(response) {
-                                if (i === mahasiswaFK.length - 1) {
-                                    Swal.fire({
-                                        icon: "success",
-                                        title: "Berhasil",
-                                        text: "Kelompok berhasil dibuat!",
-                                        confirmButtonText: "Oke",
-                                    }).then(() => {
-                                        window.location.href =
-                                            "{{ route('view.data.kelompok') }}";
-                                    });
-                                }
+                                console.log("Mahasiswa berhasil dibuat");
                             },
-                            error: function(xhr) {
-                                console.error("Error:", xhr.responseText);
-                                Swal.fire({
-                                    icon: "error",
-                                    title: "Gagal",
-                                    text: "Terjadi kesalahan, silakan coba lagi.",
-                                    confirmButtonText: "Tutup",
-                                });
+                        });
+                    }
+
+                    for (let i = 0; i < mahasiswaFKG.length; i++) {
+                        $.ajax({
+                            type: "POST",
+                            url: "{{ route('add.mahasiswa.to.kelompok') }}",
+                            data: {
+                                _token: "{{ csrf_token() }}",
+                                kelompok_kkn_id: kelompok_kkn_id,
+                                mahasiswa_id: mahasiswaFKG[i],
+                            },
+                            success: function(response) {
+                                console.log("Mahasiswa berhasil dibuat");
+                            },
+                        });
+                    }
+
+                    for (let i = 0; i < mahasiswaFH.length; i++) {
+                        $.ajax({
+                            type: "POST",
+                            url: "{{ route('add.mahasiswa.to.kelompok') }}",
+                            data: {
+                                _token: "{{ csrf_token() }}",
+                                kelompok_kkn_id: kelompok_kkn_id,
+                                mahasiswa_id: mahasiswaFH[i],
+                            },
+                            success: function(response) {
+                                console.log("Mahasiswa berhasil dibuat");
+                            },
+                        });
+                    }
+
+                    for (let i = 0; i < mahasiswaFEB.length; i++) {
+                        $.ajax({
+                            type: "POST",
+                            url: "{{ route('add.mahasiswa.to.kelompok') }}",
+                            data: {
+                                _token: "{{ csrf_token() }}",
+                                kelompok_kkn_id: kelompok_kkn_id,
+                                mahasiswa_id: mahasiswaFEB[i],
+                            },
+                            success: function(response) {
+                                console.log("Mahasiswa berhasil dibuat");
+                            },
+                        });
+                    }
+
+                    for (let i = 0; i < mahasiswaFTI.length; i++) {
+                        $.ajax({
+                            type: "POST",
+                            url: "{{ route('add.mahasiswa.to.kelompok') }}",
+                            data: {
+                                _token: "{{ csrf_token() }}",
+                                kelompok_kkn_id: kelompok_kkn_id,
+                                mahasiswa_id: mahasiswaFTI[i],
+                            },
+                            success: function(response) {
+                                console.log("Mahasiswa berhasil dibuat");
+                            },
+                        });
+                    }
+
+                    for (let i = 0; i < mahasiswaPsikologi.length; i++) {
+                        $.ajax({
+                            type: "POST",
+                            url: "{{ route('add.mahasiswa.to.kelompok') }}",
+                            data: {
+                                _token: "{{ csrf_token() }}",
+                                kelompok_kkn_id: kelompok_kkn_id,
+                                mahasiswa_id: mahasiswaPsikologi[i],
+                            },
+                            success: function(response) {
+                                console.log("Mahasiswa berhasil dibuat");
                             },
                         });
                     }
@@ -126,6 +193,16 @@
                 },
             });
 
+            if (validasi > 0) {
+                Swal.fire({
+                    icon: "success",
+                    title: "Berhasil",
+                    text: "Kelompok KKN berhasil dibuat.",
+                    confirmButtonText: "Tutup",
+                }).then(() => {
+                        window.location.href = "{{ route('view.data.kelompok') }}"
+                });
+            }
         }
     </script>
 </head>
@@ -144,7 +221,7 @@
 
         <div class="app-content pt-3 p-md-3 p-lg-4">
             <div class="container-xl">
-                <h1 class="app-page-title">Buat Akun Kelompok KKN</h1>
+                <h1 class="app-page-title">Kelompok KKN</h1>
                 <div class="row gy-4">
 
 

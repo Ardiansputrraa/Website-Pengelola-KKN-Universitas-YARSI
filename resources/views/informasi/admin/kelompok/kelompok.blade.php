@@ -71,7 +71,7 @@
                             <div class="app-card-body">
                                 <div class="table-responsive">
                                     <table class="table app-table-hover mb-0 text-left">
-                                        <thead>
+                                        <thead class="table-success">
                                             <tr>
                                                 <th class="cell">Nama Kelompok</th>
                                                 <th class="cell">Nama Dosen</th>
@@ -85,7 +85,7 @@
                                             @foreach ($kelompok as $data)
                                                 <tr>
                                                     <td class="cell">{{ $data->nama_kelompok }}</td>
-                                                    <td class="cell">{{ $data->dpl->nama_lengkap ?? '-' }}</td>
+                                                    <td class="cell">{{ $data->dpl->nama_lengkap }}, {{ $data->dpl->gelar }}</td>
                                                     <td class="cell">{{ $data->kelompok_mahasiswa_count }}</td>
                                                     <td class="cell">{{ $data->lokasi }}</td>
                                                     <td class="cell">

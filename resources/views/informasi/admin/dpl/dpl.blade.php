@@ -19,9 +19,7 @@
             if (dplData.length > 0) {
                 console.log(dplData);
                 dplData.forEach(data => {
-                    let statusClass =
-                        data.status === "Terdaftar" ? "bg-success" :
-                        data.status === "Diproses" ? "bg-warning" : "bg-danger";
+                    let statusClass = data.status === "terdaftar" ? "bg-success" : "bg-danger";
 
                     let tabelTemp = `
                         <tr>
@@ -111,8 +109,7 @@
                                                 <td class="cell">${data[i]["prodi"]}</td>
                                                <td class="cell">
                                                     <span class="badge 
-                                                        ${data[i]["status"] === "Terdaftar" ? 'bg-success' : 
-                                                        data[i]["status"] === "Diproses" ? 'bg-warning' : 'bg-danger'}">
+                                                        ${data[i]["status"] === "terdaftar" ? 'bg-success' : 'bg-danger'}">
                                                         ${data[i]["status"]}
                                                     </span>
                                                 </td>
@@ -206,9 +203,9 @@
                         aria-labelledby="orders-all-tab">
                         <div class="app-card app-card-orders-table shadow-sm mb-5">
                             <div class="app-card-body">
-                                <div class="table-responsive">
+                                <div class="table-responsive" style="max-height: 400px; overflow-y: auto;">
                                     <table class="table app-table-hover mb-0 text-left">
-                                        <thead>
+                                        <thead class="table-success">
                                             <tr>
                                                 <th class="cell">Nama Lengkap</th>
                                                 <th class="cell">NIP</th>
