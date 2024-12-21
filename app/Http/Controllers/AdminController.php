@@ -341,7 +341,7 @@ class AdminController extends Controller
 
         return response()->json([
             'success' => 'Buat kelompok berhasil.',
-            'kelompok_kkn_id' => $kelompokKKN->id, 
+            'kelompok_kkn_id' => $kelompokKKN->id,
         ], 200);
     }
 
@@ -366,7 +366,50 @@ class AdminController extends Controller
         $kelompokMahasiswa = KelompokMahasiswa::where('kelompok_kkn_id', $id)->get();
 
         return view('informasi.admin.kelompok.detail-kelompok', compact(
-            'mahasiswa', 'kelompokKKN', 'kelompokMahasiswa', 'dpls'
+            'mahasiswa',
+            'kelompokKKN',
+            'kelompokMahasiswa',
+            'dpls'
         ));
+    }
+
+    public function editDataKelompokKKN(Request $request, $id)
+    {
+        $kelompokKKN = KelompokKKN::find($id);
+
+        $validator = Validator::make($request->all(), [
+            'kelompok_kkn' => 'unique:kelompok_kkn,nama_kelompok,' . $kelompokKKN->id . ',id'
+
+        ]);
+
+        if ($validator->fails()) {
+            if ($validator->errors()->has('nama_kelompok')) {
+                return response()->json(['message' => 'Nama kelompok telah digunakan!'], 422);
+            }
+            return response()->json(['errors' => $validator->errors()], 422);
+        }
+
+        $kelompokKKN->update([
+            'nama_kelompok' => $request->nama_kelompok,
+            'lokasi' => $request->lokasi,
+        ]);
+
+        return response()->json(['success' => 'Kelompok berhasil diubah.'], 200);
+    }
+
+    public function searchDataKelompokMahasiswa(Request $request, Mahasiswa $mahasiswa)
+    {
+
+        $keyword = $request->get('keyword');
+        $results = Mahasiswa::where('status', 'diproses')
+        ->where(function ($query) use ($keyword) {
+            $query->where('nama_lengkap', 'LIKE', '%' . $keyword . '%')
+                ->orWhere('npm', 'LIKE', '%' . $keyword . '%')
+                ->orWhere('fakultas', 'LIKE', '%' . $keyword . '%')
+                ->orWhere('prodi', 'LIKE', '%' . $keyword . '%');
+        })
+        ->get();
+
+    return response()->json($results);
     }
 }

@@ -45,6 +45,8 @@ Route::middleware(['auth'])->group(function () {
         Route::post('create-kelompok-kkn', 'createKelompokKKN')->name('create.kelompok.kkn');
         Route::post('add-mahasiswa-to-kelompok', 'addMahasiswaToKelompokKKN')->name('add.mahasiswa.to.kelompok');
         Route::get('view-detail-data-kelompok/{kelompok_id}', 'viewDetailDataKelompok')->name('view-detail.data.kelompok');
+        Route::post('edit-data-kelompok-kkn/{kelompok_id}', 'editDataKelompokKKN')->name('edit.data.kelompok.kkn');
+        Route::get('search-data-kelompok-mahasiswa', 'searchDataKelompokMahasiswa')->name('search.data.kelompok.mahasiswa');
     });
 });
 

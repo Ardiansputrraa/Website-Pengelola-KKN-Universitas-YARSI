@@ -207,9 +207,9 @@
                         aria-labelledby="orders-all-tab">
                         <div class="app-card app-card-orders-table shadow-sm mb-5">
                             <div class="app-card-body">
-                                <div class="table-responsive">
+                                <div class="table-responsive" style="max-height: 400px; overflow-y: auto;">
                                     <table class="table app-table-hover mb-0 text-left">
-                                        <thead>
+                                        <thead class="table-success">
                                             <tr>
                                                 <th class="cell">Nama Lengkap</th>
                                                 <th class="cell">NPM</th>
@@ -217,15 +217,14 @@
                                                 <th class="cell">Prodi</th>
                                                 <th class="cell">Status</th>
                                                 <th class="cell">Aksi</th>
-
                                             </tr>
                                         </thead>
                                         <tbody id="tabelMahasiswa">
-
-
+                                            <!-- Konten tabel -->
                                         </tbody>
                                     </table>
                                 </div><!--//table-responsive-->
+                                
 
                             </div><!--//app-card-body-->
                         </div><!--//app-card-->
