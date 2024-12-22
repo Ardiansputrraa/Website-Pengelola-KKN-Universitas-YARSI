@@ -37,7 +37,6 @@
                     .text("")
                     .removeClass("is-safe")
                     .addClass("is-danger");
-                $("#namaLengkap").focus();
             }
 
             if (npm === "") {
@@ -54,7 +53,6 @@
                     .text("")
                     .removeClass("is-safe")
                     .addClass("is-danger");
-                $("#npm").focus();
             }
 
             if (email === "") {
@@ -71,7 +69,6 @@
                     .text("")
                     .removeClass("is-safe")
                     .addClass("is-danger");
-                $("#email").focus();
             }
 
             if (nomerWhatsapp === "") {
@@ -88,7 +85,6 @@
                     .text("")
                     .removeClass("is-safe")
                     .addClass("is-danger");
-                $("#nomerWhatsapp").focus();
             }
 
             if (!file) {

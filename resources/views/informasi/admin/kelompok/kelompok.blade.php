@@ -21,7 +21,7 @@
                 },
                 success: function(data) {
                     let tabelKelompok = $("#tabelKelompok");
-                    tabelKelompok.empty(); 
+                    tabelKelompok.empty();
 
                     if (data.length > 0) {
                         for (let i = 0; i < data.length; i++) {
@@ -131,9 +131,10 @@
                                 </div><!--//col-->
 
                                 <div class="col-auto">
-                                    <a class="btn app-btn-secondary" href="{{ route('download.data.kelompok.kkn') }}"><svg width="1em" height="1em"
-                                            viewBox="0 0 16 16" class="bi bi-upload me-2" fill="currentColor"
-                                            xmlns="http://www.w3.org/2000/svg">
+                                    <a class="btn app-btn-secondary"
+                                        href="{{ route('download.data.kelompok.kkn') }}"><svg width="1em"
+                                            height="1em" viewBox="0 0 16 16" class="bi bi-upload me-2"
+                                            fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                                             <path fill-rule="evenodd"
                                                 d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z" />
                                             <path fill-rule="evenodd"
