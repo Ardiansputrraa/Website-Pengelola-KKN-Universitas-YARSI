@@ -56,7 +56,7 @@
                         text: "Selamat anda berhasil login!",
                         confirmButtonText: "Oke",
                     }).then(() => {
-                        window.location.href = "/profile;
+                        window.location.href = "/profile";
                         
                     });
                 },
