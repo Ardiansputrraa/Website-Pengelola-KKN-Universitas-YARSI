@@ -57,6 +57,8 @@ Route::middleware(['auth'])->group(function () {
 Route::middleware(['auth'])->group(function () {
     Route::controller(MahasiswaController::class)->group(function () {
         Route::post('daftar-kkn-reguler', 'daftarKknReguler')->name('daftar.kkn.reguler');
+        Route::get('view-kelompok-kkn', 'viewKelompokKKN')->name('view.kelompok.kkn');
+        Route::get('view-dpl-kkn', 'viewDPLKKN')->name('view.dpl.kkn');
     });
 });
 

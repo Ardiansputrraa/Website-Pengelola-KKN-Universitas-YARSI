@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\DPL;
 use App\Models\Mahasiswa;
+use App\Models\KelompokKKN;
 use Illuminate\Http\Request;
+use App\Models\KelompokMahasiswa;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
@@ -57,4 +60,38 @@ class MahasiswaController extends Controller
             return response()->json(['msg' => 'Data Mahasiswa Berhasil Diubah.'], 200);
         }
     }
+
+    public function viewKelompokKKN() {
+        $user = Auth::user();
+    
+        $kelompok_mahasiswa = KelompokMahasiswa::where('mahasiswa_id', $user->mahasiswa->id)->first();
+        $lokasi = KelompokKKN::where('id', $kelompok_mahasiswa->kelompok_kkn_id)->first();
+        
+        if ($kelompok_mahasiswa) {
+            $kelompok_kkn = KelompokKKN::find($kelompok_mahasiswa->kelompok_kkn_id);
+    
+            $daftar_mahasiswa = Mahasiswa::whereIn('id', $kelompok_kkn->kelompokMahasiswa->pluck('mahasiswa_id'))->get();
+        } else {
+            $daftar_mahasiswa = collect(); 
+        }
+    
+        return view('informasi.mahasiswa.kelompok', compact('daftar_mahasiswa', 'lokasi'));
+    }
+
+    public function viewDPLKKN() {
+        $user = Auth::user();
+    
+        $kelompok_mahasiswa = KelompokMahasiswa::where('mahasiswa_id', $user->mahasiswa->id)->first();
+    
+        if ($kelompok_mahasiswa) {
+            $kelompok_kkn = KelompokKKN::find($kelompok_mahasiswa->kelompok_kkn_id);
+    
+            $dpl = DPL::find($kelompok_kkn->dpl_id);
+        } else {
+            $dpl = null;
+        }
+    
+        return view('informasi.mahasiswa.dpl', compact('dpl'));
+    }
+    
 }
