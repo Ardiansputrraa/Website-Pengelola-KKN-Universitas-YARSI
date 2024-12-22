@@ -92,7 +92,7 @@
                                                 <td class="cell">${data[i]["prodi"]}</td>
                                                 <td class="cell">
                                                 <div class="button-group">
-                                                    <button class="btn-sm text-primary" onclick="tambahKelompokMahasiswa('${data[i]["user_id"]}')"
+                                                    <button class="btn-sm text-primary" onclick="tambahKelompokMahasiswa('${data[i]["id"]}')"
                                                         style="border: none; background: none; color: inherit; cursor: pointer;">
                                                         <svg xmlns="http://www.w3.org/2000/svg" width="16"
                                                             height="16" fill="currentColor"
@@ -120,6 +120,32 @@
                 error: function() {
                     alert('Terjadi kesalahan saat memuat data.');
                 }
+            });
+        }
+
+        function deleteDataKelompokMahasiswa(mahasiswa_id) {
+            $.ajax({
+                type: "POST",
+                url: "{{ route('delete.data.kelompok.mahasiswa') }}",
+                data: {
+                    _token: "{{ csrf_token() }}",
+                    mahasiswa_id: mahasiswa_id,
+                },
+                success: function(response) {
+                    Swal.fire({
+                        title: "Berhasil",
+                        text: response.success,
+                        icon: "success",
+                        confirmButtonText: "Oke",
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            window.location.reload();
+                        }
+                    });
+                },
+                error: function(xhr) {
+                    alert('Error: ' + xhr.responseJSON.error);
+                },
             });
         }
     </script>
@@ -171,7 +197,8 @@
                                             <label for="namaKelompok" class="form-label"><strong>Nama
                                                     Kelompok</strong></label>
                                             <input type="text" class="form-control" id="namaKelompok"
-                                                placeholder="Nama Kelompok" value="{{ $kelompokKKN->nama_kelompok }}" />
+                                                placeholder="Nama Kelompok"
+                                                value="{{ $kelompokKKN->nama_kelompok }}" />
                                             <p id="helpNamaKelompok" class="help is-hidden"></p>
                                         </div>
                                     </div>
@@ -204,7 +231,7 @@
                             <div class="app-card-footer p-4 mt-auto">
                                 <button class="btn app-btn-primary" type="button" onclick="updateDataKelompkKKN()">Ubah
                                     Kelompok</button>
-                                <a href="javascript:history.back()" class="btn app-btn-secondary">Kembali</a>
+                                <a href="/view-data-kelompok" class="btn app-btn-secondary">Kembali</a>
                             </div><!--//app-card-footer-->
                         </div><!--//app-card-->
                     </div><!--//col-->
@@ -257,7 +284,7 @@
                                                                         <td class="cell">
                                                                             <div class="button-group">
                                                                                 <button class="btn-sm text-primary"
-                                                                                    onclick=""
+                                                                                    onclick="deleteDataKelompokMahasiswa('{{ $dataMahasiswa->mahasiswa->id }}')"
                                                                                     style="border: none; background: none; color: inherit; cursor: pointer;">
                                                                                     <svg xmlns="http://www.w3.org/2000/svg"
                                                                                         width="16" height="16"
@@ -338,7 +365,8 @@
                                                 <td>{{ $data->prodi }}</td>
                                                 <td class="cell">
                                                     <div class="button-group">
-                                                        <button class="btn-sm text-primary" onclick="tambahKelompokMahasiswa('{{ $data->id }}')"
+                                                        <button class="btn-sm text-primary"
+                                                            onclick="tambahKelompokMahasiswa('{{ $data->id }}')"
                                                             style="border: none; background: none; color: inherit; cursor: pointer;">
                                                             <svg xmlns="http://www.w3.org/2000/svg" width="16"
                                                                 height="16" fill="currentColor"
@@ -352,7 +380,7 @@
                                                             Tambah
                                                         </button>
                                                     </div>
-                                                    </td>
+                                                </td>
                                             </tr>
                                         @endforeach
                                     </tbody>

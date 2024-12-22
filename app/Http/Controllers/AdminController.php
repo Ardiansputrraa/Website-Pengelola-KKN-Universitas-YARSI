@@ -402,14 +402,114 @@ class AdminController extends Controller
 
         $keyword = $request->get('keyword');
         $results = Mahasiswa::where('status', 'diproses')
-        ->where(function ($query) use ($keyword) {
-            $query->where('nama_lengkap', 'LIKE', '%' . $keyword . '%')
-                ->orWhere('npm', 'LIKE', '%' . $keyword . '%')
-                ->orWhere('fakultas', 'LIKE', '%' . $keyword . '%')
-                ->orWhere('prodi', 'LIKE', '%' . $keyword . '%');
-        })
-        ->get();
+            ->where(function ($query) use ($keyword) {
+                $query->where('nama_lengkap', 'LIKE', '%' . $keyword . '%')
+                    ->orWhere('npm', 'LIKE', '%' . $keyword . '%')
+                    ->orWhere('fakultas', 'LIKE', '%' . $keyword . '%')
+                    ->orWhere('prodi', 'LIKE', '%' . $keyword . '%');
+            })
+            ->get();
 
-    return response()->json($results);
+        return response()->json($results);
+    }
+
+    public function deleteDataKelompokMahasiswa(Request $request)
+    {
+        $mahasiswa_id = $request->mahasiswa_id;
+
+        $deleted = KelompokMahasiswa::where('mahasiswa_id', $mahasiswa_id)->delete();
+
+        $mahasiswa = Mahasiswa::find($mahasiswa_id);
+        if ($mahasiswa) {
+            $mahasiswa->update([
+                'status' => "diproses",
+            ]);
+        }
+
+        if ($deleted) {
+            return response()->json(['success' => 'Data mahasiswa kkn berhasil dihapus.'], 200);
+        } else {
+            return response()->json(['error' => 'Data tidak ditemukan atau gagal dihapus.'], 404);
+        }
+    }
+
+    public function deleteDataKelompokKKN(Request $request)
+    {
+
+        $kelompokMahasiswa = KelompokMahasiswa::where('kelompok_kkn_id', $request->kelompok_kkn_id)->get();
+
+        foreach ($kelompokMahasiswa as $mahasiswa) {
+            $mahasiswaRecord = Mahasiswa::find($mahasiswa->mahasiswa_id);
+            if ($mahasiswaRecord) {
+                $mahasiswaRecord->update([
+                    'status' => 'diproses',
+                ]);
+            }
+        }
+        KelompokMahasiswa::where('kelompok_kkn_id', $request->kelompok_kkn_id)->delete();
+
+        $deleted = KelompokKKN::where('id', $request->kelompok_kkn_id)->delete();
+
+        $dpl = Dpl::find($request->dpl_id);
+        if ($dpl) {
+            $dpl->update([
+                'status' => "belum terdaftar",
+            ]);
+        }
+
+        if ($deleted) {
+            return response()->json(['success' => 'Data kelompok KKN berhasil dihapus dan status mahasiswa diperbarui.'], 200);
+        } else {
+            return response()->json(['error' => 'Data tidak ditemukan atau gagal dihapus.'], 404);
+        }
+    }
+
+    public function searchDataKelompokKKN(Request $request)
+    {
+
+        $keyword = $request->get('keyword');
+
+        $results = KelompokKKN::where('nama_kelompok', 'LIKE', '%' . $keyword . '%')
+            ->orWhere('lokasi', 'LIKE', '%' . $keyword . '%')
+            ->with('dpl')
+            ->withCount('kelompokMahasiswa')
+            ->get();
+
+        return response()->json($results);
+    }
+
+    public function downloadDataKelompokKKN()
+    {
+        
+        $data = KelompokKKN::with(['dpl', 'kelompokMahasiswa'])->get();
+
+        $fileName = 'data_kelompok_kkn.csv';
+
+        $headers = [
+            'Content-Type' => 'text/csv',
+            'Content-Disposition' => "attachment; filename=$fileName",
+            'Pragma' => 'no-cache',
+            'Cache-Control' => 'must-revalidate, post-check=0, pre-check=0',
+            'Expires' => '0',
+        ];
+
+        $columns = ['Nama Kelompok', 'Nama Dosen', 'Jumlah Mahasiswa', 'Lokasi'];
+
+        $callback = function () use ($data, $columns) {
+            $file = fopen('php://output', 'w');
+            fputcsv($file, $columns);
+
+            foreach ($data as $row) {
+                fputcsv($file, [
+                    $row->nama_kelompok,
+                    $row->dpl ? $row->dpl->nama_lengkap . ', ' . $row->dpl->gelar : 'Tidak Ada DPL',
+                    $row->kelompokMahasiswa->count(),
+                    $row->lokasi,
+                ]);
+            }
+            fclose($file);
+        };
+
+        return response()->stream($callback, 200, $headers);
     }
 }

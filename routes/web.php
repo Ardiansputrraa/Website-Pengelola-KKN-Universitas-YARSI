@@ -47,6 +47,10 @@ Route::middleware(['auth'])->group(function () {
         Route::get('view-detail-data-kelompok/{kelompok_id}', 'viewDetailDataKelompok')->name('view-detail.data.kelompok');
         Route::post('edit-data-kelompok-kkn/{kelompok_id}', 'editDataKelompokKKN')->name('edit.data.kelompok.kkn');
         Route::get('search-data-kelompok-mahasiswa', 'searchDataKelompokMahasiswa')->name('search.data.kelompok.mahasiswa');
+        Route::post('delete-data-kelompok-mahasiswa', 'deleteDataKelompokMahasiswa')->name('delete.data.kelompok.mahasiswa');
+        Route::post('delete-data-kelompok-kkn', 'deleteDataKelompokKKN')->name('delete.data.kelompok.kkn');
+        Route::get('search-data-kelompok-kkn', 'searchDataKelompokKKN')->name('search.data.kelompok.kkn');
+        Route::get('download-data-kelompok-kkn', 'downloadDataKelompokKKN')->name('download.data.kelompok.kkn');
     });
 });
 
