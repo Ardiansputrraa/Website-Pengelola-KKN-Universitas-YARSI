@@ -52,11 +52,15 @@
                     </a><!--//nav-link-->
                     <div id="submenu-2" class="collapse submenu submenu-2" data-bs-parent="#menu-accordion">
                         <ul class="submenu-list list-unstyled">
-                            @if (Auth::check() && Auth::user()->role != 'admin')
-                            <li class="submenu-item"><a class="submenu-link" href="">DPL</a></li>
+                            @if (Auth::check() && Auth::user()->role == 'dpl')
                             <li class="submenu-item"><a class="submenu-link" href="">Kelompok</a>
                             </li>                            
                             <li class="submenu-item"><a class="submenu-link" href="">Lokasi</a></li>
+                            @endif
+                            @if (Auth::check() && Auth::user()->role == 'mahasiswa')
+                            <li class="submenu-item"><a class="submenu-link" href="{{ route('view.dpl.kkn') }}">DPL</a></li>
+                            <li class="submenu-item"><a class="submenu-link" href="{{ route('view.kelompok.kkn') }}">Kelompok</a>
+                            </li>        
                             @endif
                             @if (Auth::check() && Auth::user()->role == 'admin')
                             <li class="submenu-item"><a class="submenu-link"
