@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\DplController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ProfileController;
@@ -59,6 +60,12 @@ Route::middleware(['auth'])->group(function () {
         Route::post('daftar-kkn-reguler', 'daftarKknReguler')->name('daftar.kkn.reguler');
         Route::get('view-kelompok-kkn', 'viewKelompokKKN')->name('view.kelompok.kkn');
         Route::get('view-dpl-kkn', 'viewDPLKKN')->name('view.dpl.kkn');
+    });
+});
+
+Route::middleware(['auth'])->group(function () {
+    Route::controller(DplController::class)->group(function () {
+        Route::get('view-kelompok-kkn-dpl', 'viewKelompokKKNDPL')->name('view.kelompok.kkn.dpl');
     });
 });
 

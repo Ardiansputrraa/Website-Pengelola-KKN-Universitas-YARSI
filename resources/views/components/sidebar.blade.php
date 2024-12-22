@@ -11,71 +11,98 @@
             <ul class="app-menu list-unstyled accordion" id="menu-accordion">
                 @if (Auth::check() && Auth::user()->role == 'mahasiswa')
                     @if (Auth::check() && Auth::user()->getTableDatabase()->status == 'belum terdaftar')
-                    <li class="nav-item">
-                        <!--//Bootstrap Icons: https://icons.getbootstrap.com/ -->
-                        <a class="nav-link" href="/pwngajuan-kkn">
-                            <span class="nav-icon">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                        <li class="nav-item">
+                            <!--//Bootstrap Icons: https://icons.getbootstrap.com/ -->
+                            <a class="nav-link" href="/pwngajuan-kkn">
+                                <span class="nav-icon">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                                         fill="currentColor" class="bi bi-person-bounding-box" viewBox="0 0 16 16">
                                         <path
                                             d="M1.5 1a.5.5 0 0 0-.5.5v3a.5.5 0 0 1-1 0v-3A1.5 1.5 0 0 1 1.5 0h3a.5.5 0 0 1 0 1zM11 .5a.5.5 0 0 1 .5-.5h3A1.5 1.5 0 0 1 16 1.5v3a.5.5 0 0 1-1 0v-3a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 1-.5-.5M.5 11a.5.5 0 0 1 .5.5v3a.5.5 0 0 0 .5.5h3a.5.5 0 0 1 0 1h-3A1.5 1.5 0 0 1 0 14.5v-3a.5.5 0 0 1 .5-.5m15 0a.5.5 0 0 1 .5.5v3a1.5 1.5 0 0 1-1.5 1.5h-3a.5.5 0 0 1 0-1h3a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 1 .5-.5" />
                                         <path
                                             d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zm8-9a3 3 0 1 1-6 0 3 3 0 0 1 6 0" />
                                     </svg>
-                            </span>
-                            <span class="nav-link-text">Pengajuan KKN</span>
-                        </a><!--//nav-link-->
+                                </span>
+                                <span class="nav-link-text">Pengajuan KKN</span>
+                            </a>
                     @endif
                 @endif
-                <li class="nav-item has-submenu">
-                    <!--//Bootstrap Icons: https://icons.getbootstrap.com/ -->
-                    <a class="nav-link submenu-toggle" href="#" data-bs-toggle="collapse"
-                        data-bs-target="#submenu-2" aria-expanded="false" aria-controls="submenu-1">
-                        <span class="nav-icon">
-                            <!--//Bootstrap Icons: https://icons.getbootstrap.com/ -->
-                            <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-files"
-                                fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                                <path fill-rule="evenodd"
-                                    d="M4 2h7a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2zm0 1a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h7a1 1 0 0 0 1-1V4a1 1 0 0 0-1-1H4z" />
-                                <path
-                                    d="M6 0h7a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2v-1a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H6a1 1 0 0 0-1 1H4a2 2 0 0 1 2-2z" />
-                            </svg>
-                        </span>
-                        <span class="nav-link-text">Informasi</span>
-                        <span class="submenu-arrow">
-                            <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-chevron-down"
-                                fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                                <path fill-rule="evenodd"
-                                    d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z" />
-                            </svg>
-                        </span><!--//submenu-arrow-->
-                    </a><!--//nav-link-->
-                    <div id="submenu-2" class="collapse submenu submenu-2" data-bs-parent="#menu-accordion">
-                        <ul class="submenu-list list-unstyled">
-                            @if (Auth::check() && Auth::user()->role == 'dpl')
-                            <li class="submenu-item"><a class="submenu-link" href="">Kelompok</a>
-                            </li>                            
-                            <li class="submenu-item"><a class="submenu-link" href="">Lokasi</a></li>
-                            @endif
-                            @if (Auth::check() && Auth::user()->role == 'mahasiswa')
-                            <li class="submenu-item"><a class="submenu-link" href="{{ route('view.dpl.kkn') }}">DPL</a></li>
-                            <li class="submenu-item"><a class="submenu-link" href="{{ route('view.kelompok.kkn') }}">Kelompok</a>
-                            </li>        
-                            @endif
-                            @if (Auth::check() && Auth::user()->role == 'admin')
-                            <li class="submenu-item"><a class="submenu-link"
-                                href="{{ route('view.data.kelompok') }}">Kelompok</a></li>
+                @if (Auth::check() && Auth::user()->role == 'admin')
+                    <li class="nav-item has-submenu">
+                        <a class="nav-link submenu-toggle" href="#" data-bs-toggle="collapse"
+                            data-bs-target="#submenu-2" aria-expanded="false" aria-controls="submenu-1">
+                            <span class="nav-icon">
+                                <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-files"
+                                    fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                    <path fill-rule="evenodd"
+                                        d="M4 2h7a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2zm0 1a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h7a1 1 0 0 0 1-1V4a1 1 0 0 0-1-1H4z" />
+                                    <path
+                                        d="M6 0h7a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2v-1a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H6a1 1 0 0 0-1 1H4a2 2 0 0 1 2-2z" />
+                                </svg>
+                            </span>
+                            <span class="nav-link-text">Informasi</span>
+                            <span class="submenu-arrow">
+                                <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-chevron-down"
+                                    fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                    <path fill-rule="evenodd"
+                                        d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z" />
+                                </svg>
+                            </span>
+                        </a>
+                        <div id="submenu-2" class="collapse submenu submenu-2" data-bs-parent="#menu-accordion">
+                            <ul class="submenu-list list-unstyled">
                                 <li class="submenu-item"><a class="submenu-link"
-                                    href="{{ route('view.data.dpl') }}">Dpl</a></li>
+                                        href="{{ route('view.data.kelompok') }}">Kelompok</a></li>
+                                <li class="submenu-item"><a class="submenu-link"
+                                        href="{{ route('view.data.dpl') }}">Dpl</a></li>
                                 <li class="submenu-item"><a class="submenu-link"
                                         href="{{ route('view.data.mahasiswa') }}">Mahasiswa</a></li>
-                            @endif
-                            
-                        </ul>
-                    </div>
-                </li><!--//nav-item-->
+                            </ul>
+                        </div>
+                    </li>
+                @endif
+                @if (Auth::check() && Auth::user()->role == 'dpl')
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('view.kelompok.kkn.dpl') }}">
+                            <span class="nav-icon">
+                                <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-folder"
+                                    fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                    <path
+                                        d="M6 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6m-5 6s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zM11 3.5a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 0 1h-4a.5.5 0 0 1-.5-.5m.5 2.5a.5.5 0 0 0 0 1h4a.5.5 0 0 0 0-1zm2 3a.5.5 0 0 0 0 1h2a.5.5 0 0 0 0-1zm0 3a.5.5 0 0 0 0 1h2a.5.5 0 0 0 0-1z" />
+                                </svg>
+                            </span>
+                            <span class="nav-link-text">Kelompok KKN</span>
+                        </a>
+                    </li>
+                @endif
+                @if (Auth::check() && Auth::user()->role == 'mahasiswa')
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('view.dpl.kkn') }}">
+                            <span class="nav-icon">
+                                <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-folder"
+                                    fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M11 8a3 3 0 1 1-6 0 3 3 0 0 1 6 0" />
+                                    <path
+                                        d="M14 14V4.5L9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2M9.5 3A1.5 1.5 0 0 0 11 4.5h2v9.255S12 12 8 12s-5 1.755-5 1.755V2a1 1 0 0 1 1-1h5.5z" />
+                                </svg>
+                            </span>
+                            <span class="nav-link-text">DPL</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('view.kelompok.kkn') }}">
+                            <span class="nav-icon">
+                                <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-folder"
+                                    fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                    <path
+                                        d="M6 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6m-5 6s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zM11 3.5a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 0 1h-4a.5.5 0 0 1-.5-.5m.5 2.5a.5.5 0 0 0 0 1h4a.5.5 0 0 0 0-1zm2 3a.5.5 0 0 0 0 1h2a.5.5 0 0 0 0-1zm0 3a.5.5 0 0 0 0 1h2a.5.5 0 0 0 0-1z" />
+                                </svg>
+                            </span>
+                            <span class="nav-link-text">Kelompok KKN</span>
+                        </a>
+                    </li>
+                @endif
                 <li class="nav-item">
-                    <!--//Bootstrap Icons: https://icons.getbootstrap.com/ -->
                     <a class="nav-link" href="/dokumen">
                         <span class="nav-icon">
                             <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-folder"
@@ -87,29 +114,22 @@
                             </svg>
                         </span>
                         <span class="nav-link-text">Dokumen</span>
-                    </a><!--//nav-link-->
-                </li><!--//nav-item-->
+                    </a>
+                </li>
                 <li class="nav-item">
-                    <!--//Bootstrap Icons: https://icons.getbootstrap.com/ -->
                     <a class="nav-link" href="/logbook">
                         <span class="nav-icon">
                             <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-card-list"
                                 fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                                <path fill-rule="evenodd"
-                                    d="M14.5 3h-13a.5.5 0 0 0-.5.5v9a.5.5 0 0 0 .5.5h13a.5.5 0 0 0 .5-.5v-9a.5.5 0 0 0-.5-.5zm-13-1A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h13a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2h-13z" />
-                                <path fill-rule="evenodd"
-                                    d="M5 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 5 8zm0-2.5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5zm0 5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5z" />
-                                <circle cx="3.5" cy="5.5" r=".5" />
-                                <circle cx="3.5" cy="8" r=".5" />
-                                <circle cx="3.5" cy="10.5" r=".5" />
+                                <path
+                                    d="M14 4.5V9h-1V4.5h-2A1.5 1.5 0 0 1 9.5 3V1H4a1 1 0 0 0-1 1v7H2V2a2 2 0 0 1 2-2h5.5zM13 12h1v2a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2v-2h1v2a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1zM.5 10a.5.5 0 0 0 0 1h15a.5.5 0 0 0 0-1z" />
                             </svg>
                         </span>
                         <span class="nav-link-text">Logbook</span>
-                    </a><!--//nav-link-->
-                </li><!--//nav-item-->
+                    </a>
+                </li>
 
                 <li class="nav-item">
-                    <!--//Bootstrap Icons: https://icons.getbootstrap.com/ -->
                     <a class="nav-link" href="/kalender-kegiatan">
                         <span class="nav-icon">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
@@ -121,10 +141,9 @@
                             </svg>
                         </span>
                         <span class="nav-link-text">Kalender Kegiatan</span>
-                    </a><!--//nav-link-->
-                </li><!--//nav-item-->
+                    </a>
+                </li>
                 <li class="nav-item">
-                    <!--//Bootstrap Icons: https://icons.getbootstrap.com/ -->
                     <a class="nav-link" href="/sumber-daya">
                         <span class="nav-icon">
                             <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-question-circle"
@@ -136,21 +155,19 @@
                             </svg>
                         </span>
                         <span class="nav-link-text">Sumber Daya</span>
-                    </a><!--//nav-link-->
-                </li><!--//nav-item-->
+                    </a>
+                </li>
 
-            </ul><!--//app-menu-->
-        </nav><!--//app-nav-->
+            </ul>
+        </nav>
         @if (Auth::check() && Auth::user()->role == 'admin')
             <div class="app-sidepanel-footer">
                 <nav class="app-nav app-nav-footer">
                     <ul class="app-menu footer-menu list-unstyled">
                         <li class="nav-item has-submenu">
-                            <!--//Bootstrap Icons: https://icons.getbootstrap.com/ -->
                             <a class="nav-link submenu-toggle" href="#" data-bs-toggle="collapse"
                                 data-bs-target="#submenu-3" aria-expanded="false" aria-controls="submenu-2">
                                 <span class="nav-icon">
-                                    <!--//Bootstrap Icons: https://icons.getbootstrap.com/ -->
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                                         fill="currentColor" class="bi bi-person-fill-add" viewBox="0 0 16 16">
                                         <path
@@ -167,8 +184,8 @@
                                         <path fill-rule="evenodd"
                                             d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z" />
                                     </svg>
-                                </span><!--//submenu-arrow-->
-                            </a><!--//nav-link-->
+                                </span>
+                            </a>
                             <div id="submenu-3" class="collapse submenu submenu-3" data-bs-parent="#menu-accordion">
                                 <ul class="submenu-list list-unstyled">
                                     <li class="submenu-item"><a class="submenu-link" href="/register?role=admin">Akun
@@ -179,17 +196,15 @@
                                             href="/register?role=mahasiswa">Akun mahasiswa</a></li>
                                 </ul>
                             </div>
-                        </li><!--//nav-item-->
+                        </li>
 
                     </ul>
-                    <!--//footer-menu-->
                 </nav>
             </div>
-            <!--//app-sidepanel-footer-->
+
     </div>
     @endif
 
-</div><!--//app-sidepanel-footer-->
-</div><!--//sidepanel-inner-->
-</div><!--//app-sidepanel-->
-
+</div>
+</div>
+</div>
