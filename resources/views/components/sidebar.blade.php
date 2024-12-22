@@ -130,7 +130,7 @@
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link" href="/kalender-kegiatan">
+                    <a class="nav-link" href="/view-kalender-kegiatan">
                         <span class="nav-icon">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                                 fill="currentColor" class="bi bi-calendar-date" viewBox="0 0 16 16">

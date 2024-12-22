@@ -11,6 +11,8 @@ class KalenderKegiatan extends Model
     protected $fillable = [
         'tanggal',
         'waktu',
-        'kegiatan',
+        'tempat',
+        'pembahasan',
+        'narasumber',
     ];
 }

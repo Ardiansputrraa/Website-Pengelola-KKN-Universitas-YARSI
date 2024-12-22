@@ -6,7 +6,9 @@ use App\Http\Controllers\DplController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\KalenderController;
 use App\Http\Controllers\MahasiswaController;
+use App\Http\Controllers\SumberDayaController;
 
 Route::controller(AuthController::class)->group(function () {
     Route::get('/', 'viewLogin')->name('login');
@@ -73,6 +75,18 @@ Route::middleware(['auth'])->group(function () {
     Route::controller(ProfileController::class)->group(function () {
         Route::get('profile', 'viewProfile')->name('profile');
         Route::post('update-profile', 'updateProfile')->name('profile.update');
+    });
+});
+
+Route::middleware(['auth'])->group(function () {
+    Route::controller(KalenderController::class)->group(function () {
+        Route::get('view-kalender-kegiatan', 'viewKalenderKegiatan')->name('view.kalender.kegiatan');
+        Route::post('create-kalender-kegiatan', 'createKalenderKegiatan')->name('create.kalender.kegiatan');
+        Route::get('detail-kalender-kegiatan/{kalender_id}', 'detailKalenderKegiatan')->name('detail.kalender.kegiatan');
+        Route::post('update-kalender-kegiatan', 'updateKalenderKegiatan')->name('update.kalender.kegiatan');
+        Route::get('delete-kalender-kegiatan/{kalender_id}', 'deleteKalenderKegiatan')->name('delete.kalender.kegiatan');
+        Route::get('download-kalender-kegiatan', 'downloadKalenderKegiatan')->name('download.kalender.kegiatan');
+        Route::get('search-kalender-kegiatan', 'searchKalenderKegiatan')->name('search.kalender.kegiatan');
     });
 });
 
