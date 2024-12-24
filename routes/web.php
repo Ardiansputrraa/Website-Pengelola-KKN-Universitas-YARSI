@@ -62,6 +62,7 @@ Route::middleware(['auth'])->group(function () {
         Route::post('daftar-kkn-reguler', 'daftarKknReguler')->name('daftar.kkn.reguler');
         Route::get('view-kelompok-kkn', 'viewKelompokKKN')->name('view.kelompok.kkn');
         Route::get('view-dpl-kkn', 'viewDPLKKN')->name('view.dpl.kkn');
+        Route::get('view-blank-mahasiswa', 'viewBlankMahasiswa')->name('view.blank.mahasiswa');
     });
 });
 
@@ -87,6 +88,15 @@ Route::middleware(['auth'])->group(function () {
         Route::get('delete-kalender-kegiatan/{kalender_id}', 'deleteKalenderKegiatan')->name('delete.kalender.kegiatan');
         Route::get('download-kalender-kegiatan', 'downloadKalenderKegiatan')->name('download.kalender.kegiatan');
         Route::get('search-kalender-kegiatan', 'searchKalenderKegiatan')->name('search.kalender.kegiatan');
+    });
+});
+
+Route::middleware(['auth'])->group(function () {
+    Route::controller(SumberDayaController::class)->group(function () {
+        Route::get('view-sumber-daya', 'viewSumberDaya')->name('view.sumber.daya');
+        Route::post('upload-sumber-daya', 'uploadSumberDaya')->name('upload.sumber.daya');
+        Route::get('delete-sumber-daya/{sumber_daya_id}', 'deleteSumberDaya')->name('delete.sumber.daya');
+        Route::get('download-sumber-daya/{sumber_daya_id}', 'downloadSumberDaya')->name('download.sumber.daya');
     });
 });
 

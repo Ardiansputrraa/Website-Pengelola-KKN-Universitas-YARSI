@@ -32,6 +32,7 @@
                                                 <td class="cell">${data[i]["tempat"]}</td>
                                                 <td class="cell">${data[i]["pembahasan"]}</td>
                                                 <td class="cell"><span>${data[i]["narasumber"]}</span></td>
+                                                @if (Auth::user()->role == 'admin')
                                                 <td class="cell">
                                                     <div class="button-group">
                                                         <button type="button" class="btn-sm"
@@ -59,6 +60,7 @@
                                                             Hapus
                                                         </button>
                                                     </div>
+                                                    @endif
                                                 </td>
                                             </tr>`
 
@@ -453,7 +455,9 @@
                                             <th class="cell">Tempat</th>
                                             <th class="cell">Pembahasan</th>
                                             <th class="cell">Narasumber</th>
+                                            @if (Auth::user()->role == 'admin')
                                             <th class="cell">Aksi</th>
+                                            @endif
                                         </tr>
                                     </thead>
                                     <tbody id="tabelKalenderKegiatan">
@@ -464,6 +468,7 @@
                                                 <td class="cell">{{ $data->tempat }}</td>
                                                 <td class="cell">{{ $data->pembahasan }}</td>
                                                 <td class="cell"><span>{{ $data->narasumber }}</span></td>
+                                                @if (Auth::user()->role == 'admin')
                                                 <td class="cell">
                                                     <div class="button-group">
                                                         <button type="button" class="btn-sm"
@@ -492,6 +497,7 @@
                                                         </button>
                                                     </div>
                                                 </td>
+                                                @endif
                                             </tr>
                                         @endforeach
                                     </tbody>
@@ -629,6 +635,7 @@
                     </div>
                     <!-- Footer -->
                     <div class="modal-footer">
+                        <button type="button" class="btn app-btn-secondary" data-bs-dismiss="modal">Batal</button>
                         <button type="button" onclick="editKalenderKegiatan()" form="formTambahKegiatan"
                             class="btn btn-primary text-white">Ubah</button>
                     </div>

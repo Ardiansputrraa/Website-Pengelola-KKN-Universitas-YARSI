@@ -9,8 +9,9 @@ class SumberDaya extends Model
     protected $table = 'sumber_daya';
 
     protected $fillable = [
-        'file',
+        'path',
         'judul',
-        'deskripsi',
+        'tipe_file',
+        'size',
     ];
 }

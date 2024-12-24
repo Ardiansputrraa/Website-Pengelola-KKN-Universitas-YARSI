@@ -93,5 +93,10 @@ class MahasiswaController extends Controller
     
         return view('informasi.mahasiswa.dpl', compact('dpl'));
     }
+
+    public function viewBlankMahasiswa() {
+        
+        return view('informasi.mahasiswa._404');
+    }
     
 }

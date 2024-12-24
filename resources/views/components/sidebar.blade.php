@@ -89,6 +89,20 @@
                             <span class="nav-link-text">DPL</span>
                         </a>
                     </li>
+                    @if (Auth::check() && Auth::user()->status != 'terdaftar')
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('view.blank.mahasiswa') }}">
+                            <span class="nav-icon">
+                                <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-folder"
+                                    fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                    <path
+                                        d="M6 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6m-5 6s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zM11 3.5a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 0 1h-4a.5.5 0 0 1-.5-.5m.5 2.5a.5.5 0 0 0 0 1h4a.5.5 0 0 0 0-1zm2 3a.5.5 0 0 0 0 1h2a.5.5 0 0 0 0-1zm0 3a.5.5 0 0 0 0 1h2a.5.5 0 0 0 0-1z" />
+                                </svg>
+                            </span>
+                            <span class="nav-link-text">Kelompok KKN</span>
+                        </a>
+                    </li>
+                    @else
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('view.kelompok.kkn') }}">
                             <span class="nav-icon">
@@ -101,6 +115,7 @@
                             <span class="nav-link-text">Kelompok KKN</span>
                         </a>
                     </li>
+                    @endif
                 @endif
                 <li class="nav-item">
                     <a class="nav-link" href="/dokumen">
@@ -144,7 +159,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/sumber-daya">
+                    <a class="nav-link" href="/view-sumber-daya">
                         <span class="nav-icon">
                             <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-question-circle"
                                 fill="currentColor" xmlns="http://www.w3.org/2000/svg">

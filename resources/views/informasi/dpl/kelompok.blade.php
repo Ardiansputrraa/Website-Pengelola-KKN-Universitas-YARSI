@@ -28,20 +28,9 @@
                             <div class="app-card p-5 text-center shadow-sm">
                                 <h1 class="page-title mb-4"><br><span class="font-weight-light">Kelompok KKN</span>
                                 </h1>
-                                @if (Auth::user()->dpl->status == 'diproses')
-                                    <div class="mb-4">
-                                        Kelompok KKN anda sedang {{ Auth::user()->dpl->status }} silahkan tunggu
-                                        beberapa hari.
-                                    </div>
-                                @endif
                                 @if (Auth::user()->dpl->status == 'belum terdaftar')
                                     <div class="mb-4">
-                                        Tidak memiliki kelompok karena {{ Auth::user()->dpl->status }} silahkan
-                                        melakukan pengajuan kkn.
-                                    </div>
-                                    <div class="mb-3">
-                                        <a href="/pwngajuan-kkn" class="btn app-btn-primary">Pengajuan KKN
-                                        </a>
+                                        Tidak memiliki kelompok karena belum di daftarkan oleh admin.
                                     </div>
                                 @endif
                             </div>
