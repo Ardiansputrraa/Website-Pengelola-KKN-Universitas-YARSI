@@ -96,7 +96,9 @@ Route::middleware(['auth'])->group(function () {
         Route::get('view-sumber-daya', 'viewSumberDaya')->name('view.sumber.daya');
         Route::post('upload-sumber-daya', 'uploadSumberDaya')->name('upload.sumber.daya');
         Route::get('delete-sumber-daya/{sumber_daya_id}', 'deleteSumberDaya')->name('delete.sumber.daya');
+        Route::get('detail-sumber-daya/{sumber_daya_id}', 'detailSumberDaya')->name('detail.sumber.daya');
         Route::get('download-sumber-daya/{sumber_daya_id}', 'downloadSumberDaya')->name('download.sumber.daya');
+        Route::post('edit-sumber-daya', 'editSumberDaya')->name('edit.sumber.daya');
     });
 });
 

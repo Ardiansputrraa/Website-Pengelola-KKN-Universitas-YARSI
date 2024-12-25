@@ -36,5 +36,8 @@ composer.lock
 *.sqlite
 *.log
 /.phpunit.result.cache
+/vendor/
+composer.lock
+.env
 
 
