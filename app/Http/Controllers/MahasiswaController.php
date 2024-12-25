@@ -65,7 +65,7 @@ class MahasiswaController extends Controller
         $user = Auth::user();
     
         $kelompok_mahasiswa = KelompokMahasiswa::where('mahasiswa_id', $user->mahasiswa->id)->first();
-        $lokasi = KelompokKKN::where('id', $kelompok_mahasiswa->kelompok_kkn_id)->first();
+        $kelompok_kkn = KelompokKKN::where('id', $kelompok_mahasiswa->kelompok_kkn_id)->first();
         
         if ($kelompok_mahasiswa) {
             $kelompok_kkn = KelompokKKN::find($kelompok_mahasiswa->kelompok_kkn_id);
@@ -75,7 +75,7 @@ class MahasiswaController extends Controller
             $daftar_mahasiswa = collect(); 
         }
     
-        return view('informasi.mahasiswa.kelompok', compact('daftar_mahasiswa', 'lokasi'));
+        return view('informasi.mahasiswa.kelompok', compact('daftar_mahasiswa', 'kelompok_kkn'));
     }
 
     public function viewDPLKKN() {

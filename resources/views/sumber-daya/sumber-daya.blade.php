@@ -8,6 +8,88 @@
 
         });
 
+        function editSumberDaya(id) {
+            $.ajax({
+                url: `/detail-sumber-daya/${id}`,
+                type: "GET",
+                success: function(response) {
+                    $('#sumber_daya_id').val(response.data.id);
+                    $('#editJudul').val(response.data.judul);
+                    const filePath = response.data.path;
+                    const fileName = filePath.split('/').pop()
+                    $('#fileName').val(fileName);
+                    $('#editFileModal').modal('show');
+                },
+                error: function(xhr) {
+                    Swal.fire({
+                        icon: "error",
+                        title: "Gagal",
+                        text: "Data kegiatan tidak ditemukan.",
+                        confirmButtonText: "Tutup",
+                    });
+                }
+            });
+        }
+
+        function editFileSumberDaya() { 
+            let editJudul = $('#editJudul').val();
+            let editFileInput = $('#editSumberDaya')[0];
+            let editFile = editFileInput.files[0];
+
+            if (editJudul === "") {
+                $("#helpEditJudul")
+                    .text("Silahkan masukan judul untuk file!")
+                    .removeClass("is-safe")
+                    .addClass("is-danger");
+                $("#editJudul").focus();
+                return;
+            }
+
+            if (judul !== "") {
+                $("#helpEditJudul")
+                    .text("")
+                    .removeClass("is-danger");
+            }
+
+            let formSumberDaya = new FormData();
+            formSumberDaya.append('_token', "{{ csrf_token() }}");
+            formSumberDaya.append('id', $('#sumber_daya_id').val());
+            formSumberDaya.append('judul', editJudul);
+            formSumberDaya.append('file', editFile);
+
+            $.ajax({
+                type: "POST",
+                url: "{{ route('edit.sumber.daya') }}",
+                data: formSumberDaya,
+                contentType: false,
+                processData: false,
+                success: function(response) {
+                    Swal.fire({
+                        title: "Berhasil",
+                        text: "Edit sumber daya berhasil!",
+                        icon: "success",
+                        confirmButtonText: "Oke",
+                        customClass: {
+                            confirmButton: 'btn app-btn-primary',
+                            cancelButton: 'btn app-btn-secondary',
+                        },
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            window.location.reload();
+                        }
+                    });
+                },
+                error: function(xhr) {
+                    Swal.fire({
+                        title: "Gagal",
+                        text: "Terjadi kesalahan saat mengunggah file.",
+                        icon: "error",
+                        confirmButtonText: "Coba Lagi",
+                    });
+                }
+            });
+        }
+
         function uploadSumberDaya() {
             $('#uploadFileModal').modal('show');
         }
@@ -126,7 +208,7 @@
                     <div class="col-auto">
                         <div class="page-utilities">
                             <div class="row g-2 justify-content-start justify-content-md-end align-items-center">
-                                
+
                                 @if (Auth::user()->role == 'admin')
                                     <div class="col-auto">
                                         <button class="btn app-btn-primary" type="button"
@@ -151,7 +233,7 @@
                             <div class="app-card app-card-doc shadow-sm h-100">
                                 <div class="app-card-thumb-holder p-3">
                                     <span class="icon-holder">
-                                        @if ($item->tipe_file === 'application/pdf')
+                                        @if ($item->tipe_file === 'pdf')
                                             <i class="fas fa-file-pdf pdf-file"></i>
                                         @elseif ($item->tipe_file === 'docx')
                                             <i class="fas fa-file-word word-file"></i>
@@ -161,7 +243,8 @@
                                             <i class="fas fa-file-alt default-file"></i>
                                         @endif
                                     </span>
-                                    <a class="app-card-link-mask" href="{{ route('download.sumber.daya', $item->id) }}"></a>
+                                    <a class="app-card-link-mask"
+                                        href="{{ route('download.sumber.daya', $item->id) }}"></a>
                                 </div>
                                 <div class="app-card-body p-3 has-card-actions">
                                     <h4 class="app-doc-title">
@@ -177,13 +260,18 @@
                                     @if (Auth::user()->role == 'admin')
                                         <div class="button-group mt-4">
                                             <button class="btn app-btn-outline-primary" type="button"
-                                            onclick="hapusSumberDaya({{ $item->id }})"><i class="fas fa-trash me-2"></i>Hapus File</button>
+                                                onclick="editSumberDaya({{ $item->id }})"><i
+                                                    class="fas fa-edit me-2"></i>Edit</button>
+                                            <button class="btn app-btn-outline-primary" type="button"
+                                                onclick="hapusSumberDaya({{ $item->id }})"><i
+                                                    class="fas fa-trash me-2"></i>Hapus</button>
                                         </div>
                                     @endif
                                     @if (Auth::user()->role != 'admin')
                                         <div class="button-group mt-4">
-                                            <a class="btn app-btn-outline-primary" 
-                                            href="{{ route('download.sumber.daya', $item->id) }}"><i class="fas fa-download me-2"></i>Download File</a>
+                                            <a class="btn app-btn-outline-primary"
+                                                href="{{ route('download.sumber.daya', $item->id) }}"><i
+                                                    class="fas fa-download me-2"></i>Download File</a>
                                         </div>
                                     @endif
                                 </div>
@@ -202,7 +290,7 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="uploadFileModalLabel">Pengajuan KKN Reguler</h5>
+                    <h5 class="modal-title" id="uploadFileModalLabel">Upload File Sumber Daya</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
@@ -226,6 +314,42 @@
                 <div class="modal-footer">
                     <button type="button" class="btn app-btn-secondary" data-bs-dismiss="modal">Batal</button>
                     <button type="button" class="btn app-btn-primary" onclick="uploadFileSumberDaya()">Upload
+                        Sumber Daya</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="editFileModal" tabindex="-1" aria-labelledby="editFileModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editFileModalLabel">Edit File Sumber Daya</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p id="sumber_daya_id" class="help is-hidden"></p>
+                    <form>
+                        <div class="mb-3">
+                            <label for="judul" class="col-form-label"><strong>Judul File</strong></label>
+                            <input type="text" class="form-control" id="editJudul"
+                                placeholder="Silahkan masukan judul file" />
+                            <p id="helpEditJudul" class="help is-hidden"></p>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="sumberDaya" class="col-form-label"><strong>
+                                    Upload File Sumber Daya</strong></label>
+                            <input type="file" class="form-control" id="editSumberDaya"
+                                placeholder="Upload File Sumber Daya" />
+                            <p id="helpSumberDaya" class="help is-hidden"></p>
+                            <input type="text" id="fileName" readonly>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn app-btn-secondary" data-bs-dismiss="modal">Batal</button>
+                    <button type="button" class="btn app-btn-primary" onclick="editFileSumberDaya()">Edit
                         Sumber Daya</button>
                 </div>
             </div>

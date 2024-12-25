@@ -89,7 +89,7 @@
                             <span class="nav-link-text">DPL</span>
                         </a>
                     </li>
-                    @if (Auth::check() && Auth::user()->status != 'terdaftar')
+                    @if (Auth::check() && Auth::user()->mahasiswa->status != 'terdaftar')
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('view.blank.mahasiswa') }}">
                             <span class="nav-icon">

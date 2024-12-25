@@ -19,39 +19,11 @@
         <div class="app-content pt-3 p-md-3 p-lg-4">
             <div class="container-xl">
 
-                @if (Auth::user()->mahasiswa->status != 'terdaftar')
-                    <div class="row">
-                        <div class="col-12 col-md-11 col-lg-7 col-xl-6 mx-auto">
-                            <div class="app-branding text-center mb-1">
-
-                            </div><!--//app-branding-->
-                            <div class="app-card p-5 text-center shadow-sm">
-                                <h1 class="page-title mb-4"><br><span class="font-weight-light">Kelompok KKN</span>
-                                </h1>
-                                @if (Auth::user()->mahasiswa->status == 'diproses')
-                                    <div class="mb-4">
-                                        Kelompok KKN anda sedang {{ Auth::user()->mahasiswa->status }} silahkan tunggu
-                                        beberapa hari.
-                                    </div>
-                                @endif
-                                @if (Auth::user()->mahasiswa->status == 'belum terdaftar')
-                                    <div class="mb-4">
-                                        Tidak memiliki kelompok karena {{ Auth::user()->mahasiswa->status }} silahkan
-                                        melakukan pengajuan kkn.
-                                    </div>
-                                    <div class="mb-3">
-                                        <a href="/pwngajuan-kkn" class="btn app-btn-primary">Pengajuan KKN
-                                        </a>
-                                    </div>
-                                @endif
-                            </div>
-                        </div><!--//col-->
-                    </div><!--//row-->
-                @else
+                
                     <div class="row g-3 mb-0 align-items-center justify-content-between">
                         <!-- Judul Kelompok KKN -->
                         <div class="col-auto">
-                            <h1 class="app-page-title mb-0">Kelompok KKN</h1>
+                            <h1 class="app-page-title mb-0">Kelompok KKN - {{ $kelompok_kkn->nama_kelompok }}</h1>
                         </div>
 
                         <!-- Informasi Lokasi -->
@@ -65,7 +37,7 @@
                                     </div>
                                     <div class="ms-3">
                                         <h5 class="card-title mb-1">Lokasi KKN</h5>
-                                        <p class="card-text text-muted mb-0">{{ $lokasi->lokasi }}</p>
+                                        <p class="card-text text-muted mb-0">{{ $kelompok_kkn->lokasi }}</p>
                                     </div>
                                 </div>
                             </div>
@@ -104,9 +76,6 @@
                             @endforeach
                         </div>
                     </div>
-                @endif
-
-
             </div><!--//container-fluid-->
         </div><!--//app-content-->
 
