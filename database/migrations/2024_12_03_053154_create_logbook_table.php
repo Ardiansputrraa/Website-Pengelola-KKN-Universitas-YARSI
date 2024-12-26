@@ -12,7 +12,7 @@ class CreateLogbookTable extends Migration
             $table->foreignId('mahasiswa_id')->constrained('mahasiswa');
             $table->foreignId('kelompok_kkn_id')->constrained('kelompok_kkn');
             $table->date('tanggal');
-            $table->time('jam');
+            $table->string('jam');
             $table->string('kegiatan');
             $table->string('tempat');
             $table->string('file_foto')->nullable();

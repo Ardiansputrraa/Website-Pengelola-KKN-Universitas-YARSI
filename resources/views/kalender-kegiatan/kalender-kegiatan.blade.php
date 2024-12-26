@@ -472,7 +472,7 @@
                                                 <td class="cell">
                                                     <div class="button-group">
                                                         <button type="button" class="btn-sm"
-                                                            onclick="editKegiatan({{ $data->id }})"s
+                                                            onclick="editKegiatan({{ $data->id }})"
                                                             style="border: none; background: none; color: inherit; cursor: pointer;">
                                                             <svg xmlns="http://www.w3.org/2000/svg" width="16"
                                                                 height="16" fill="currentColor" class="bi bi-eye"
@@ -568,6 +568,7 @@
                     </div>
                     <!-- Footer -->
                     <div class="modal-footer">
+                        <button type="button" class="btn app-btn-secondary" data-bs-dismiss="modal">Batal</button>
                         <button type="button" onclick="tambahKalenderKegiatan()" form="formTambahKegiatan"
                             class="btn btn-primary text-white">Simpan</button>
                     </div>

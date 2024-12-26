@@ -30,7 +30,7 @@ class SumberDayaController extends Controller
     {
         $id = $request->id;
 
-        $SumberDaya = SumberDaya::find($id);
+        $sumberDaya = SumberDaya::find($id);
 
         if ($request->hasFile('file')) {
             $file = $request->file('file');
@@ -49,14 +49,14 @@ class SumberDayaController extends Controller
             } else if ($file->getClientMimeType() == 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet') {
                 $tipe = 'xlsx';
             }
-            $SumberDaya->update([
+            $sumberDaya->update([
                 'path' => $filePath,
                 'judul' => $request->judul,
                 'tipe_file' =>  $tipe,
                 'size' => $fileSize,
             ]);
         } else {
-            $SumberDaya->update([
+            $sumberDaya->update([
                 'judul' => $request->judul
             ]);
         }

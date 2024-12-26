@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DplController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\LogbookController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\KalenderController;
 use App\Http\Controllers\MahasiswaController;
@@ -62,13 +63,24 @@ Route::middleware(['auth'])->group(function () {
         Route::post('daftar-kkn-reguler', 'daftarKknReguler')->name('daftar.kkn.reguler');
         Route::get('view-kelompok-kkn', 'viewKelompokKKN')->name('view.kelompok.kkn');
         Route::get('view-dpl-kkn', 'viewDPLKKN')->name('view.dpl.kkn');
-        Route::get('view-blank-mahasiswa', 'viewBlankMahasiswa')->name('view.blank.mahasiswa');
+        Route::get('view-blank-mahasiswa-kelompok', 'viewBlankMahasiswa')->name('view.blank.mahasiswa.kelompok');
     });
 });
 
 Route::middleware(['auth'])->group(function () {
     Route::controller(DplController::class)->group(function () {
         Route::get('view-kelompok-kkn-dpl', 'viewKelompokKKNDPL')->name('view.kelompok.kkn.dpl');
+        Route::get('view-blank-dpl-kelompok', 'viewBlankDpl')->name('view.blank.dpl.kelompok');
+    });
+});
+
+Route::middleware(['auth'])->group(function () {
+    Route::controller(LogbookController::class)->group(function () {
+        Route::get('view-logbook-mahasiswa/{mahasiswa_id}', 'viewLogbookMahasiswa')->name('view.logbook.mahasiswa');
+        Route::post('create-logbook-mahasiswa', 'createLogbookMahasiswa')->name('create.logbook.mahasiswa');
+        Route::get('detail-logbook/{logbook_id}', 'detailLogbook')->name('detail.logbook');
+        Route::post('edit-logbook', 'editLogbook')->name('edit.logbook');
+        Route::get('delete-logbook/{logbook_id}', 'deleteLogbook')->name('delete.logbook');
     });
 });
 
